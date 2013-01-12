@@ -47,4 +47,6 @@ Once ready for a live test:
 
 And to check it out:
 
+	heroku ps:scale web=1
+
 	heroku open
