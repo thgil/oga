@@ -25,7 +25,7 @@ And then add the remote(change username):
 
 	git remote add origin https://YourUsername@bitbucket.org/JemimaLight/opengameart.git
 
-When working on new things make a git branch(for example it is called 'hotfix'):
+When working on new things make a git branch(for example it is called 'hotfix'): [more from bitbucket](https://bitbucket.org/JemimaLight/opengameart/commits/featurebranches)
 
 	git checkout -b hotfix
 
@@ -37,7 +37,7 @@ When working on new things make a git branch(for example it is called 'hotfix'):
 
 If you want to add it back into the main branch submit a pull request from your browser.
 
-To update you repo with the remote repo do:
+To update you repo with the remote repo do:[more from bitbucket](https://bitbucket.org/JemimaLight/opengameart/pull-requests)
 
 	git pull
 
