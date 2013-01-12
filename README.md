@@ -36,3 +36,11 @@ Make a folder somewhere called opengameart.
 
 	mkdir opengameart
 
+Then open the folder.
+
+	cd opengameart
+
+And clone the repo:
+
+	git clone https://bitbucket.org/JemimaLight/opengameart.git
+
