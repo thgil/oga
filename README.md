@@ -25,6 +25,24 @@ And then add the remote(change username):
 
 	git remote add origin https://YourUsername@bitbucket.org/JemimaLight/opengameart.git
 
+When working on new things make a git branch(for example it is called 'hotfix'):
+
+	git checkout -b hotfix
+
+	git add .
+
+	git commit -m "Changes made"
+
+	git push origin hotfix
+
+If you want to add it back into the main branch submit a pull request from your browser.
+
+To update you repo with the remote repo do:
+
+	git pull
+
+If you are using the GUI version of Git lots of these are easy button presses.
+
 ##Heroku
 We can use Heroku for live testing.
 
