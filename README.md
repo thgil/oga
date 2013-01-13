@@ -1,12 +1,14 @@
 #OpenGameArt README
 
 ##Things used
-- [node.js](http://nodejs.org)
-- [express.js](http://expressjs.com)
-- [bootstrap](http://twitter.github.com/bootstrap/) 
-- [queryui](http://jqueryui.com)
-- [npm](https://npmjs.org)
-- [Heroku](https://toolbelt.heroku.com)
+- [node.js](http://nodejs.org) Backend Server
+- [express.js](http://expressjs.com) Backend Server 
+- [bootstrap](http://twitter.github.com/bootstrap/) Frontend structure
+- [jqueryui](http://jqueryui.com) Frontend JS
+- [npm](https://npmjs.org) Installer
+- [Heroku](https://toolbelt.heroku.com) Live tests
+- [Postgresql](http://www.postgresql.org) Backend Database
+- [Ejs](http://embeddedjs.com) Backend view engine
 
 ##Installation
 Make a folder somewhere called opengameart.
