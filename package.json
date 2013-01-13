@@ -10,7 +10,7 @@
     "npm": "1.1.x"
   },
   "dependencies": {
-    "express": "4.0.6",
+    "express": "3.0.6",
     "ejs": "*",
     "pg": "0.11.1"
   }
