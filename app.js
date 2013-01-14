@@ -21,7 +21,6 @@ var client = new pg.Client(conString);
 client.connect();
 
     //queries are queued and executed one after another once the connection becomes available
-    client.query("CREATE TEMP TABLE beatles(name varchar(10), height integer, birthday timestamptz)");
     client.query("INSERT INTO beatles(name, height, birthday) values($1, $2, $3)", ['Ringo', 67, new Date(1945, 11, 2)]);
     client.query("INSERT INTO beatles(name, height, birthday) values($1, $2, $3)", ['John', 68, new Date(1944, 10, 13)]);
 
