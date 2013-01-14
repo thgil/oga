@@ -7,9 +7,12 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , pg = require('pg'); 
 
 var app = express();
+
+var conString = "tcp://postgres:5432@localhost/postgres";
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);

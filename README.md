@@ -9,6 +9,8 @@
 - [Heroku](https://toolbelt.heroku.com) Live tests
 - [Postgresql](http://www.postgresql.org) Backend Database
 - [Ejs](http://embeddedjs.com) Backend view engine
+- [gm](http://aheckmann.github.com/gm/) Image manipulation
+- [imagemagick](http://www.imagemagick.org) gm is based of this.
 
 ##Installation
 Make a folder somewhere called opengameart.
