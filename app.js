@@ -15,7 +15,7 @@ var app = express();
 /**
  * Database setup.
  */
-var conString = "tcp://postgres:egbdf@localhost/ogatest";
+var conString = process.env.DATABASE_URL || "tcp://postgres:egbdf@localhost/ogatest";
 
 var client = new pg.Client(conString);
 client.connect();

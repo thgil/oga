@@ -1,5 +1,5 @@
 var pg = require('pg').native
-  , connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/dailyjs'
+  , connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ogatest'
   , client
   , query;
 
