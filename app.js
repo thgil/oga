@@ -70,10 +70,10 @@ app.get('/pg', function(req, res) {
 
     //can stream row results back 1 at a time
     query.on('row', function(row) {
-      console.log(row);
-      console.log("Beatle name: %s", row.name); //Beatle name: John
-      console.log("Beatle birth year: %d", row.birthday.getYear()); //dates are returned as javascript dates
-      console.log("Beatle height: %d' %d\"", Math.floor(row.height/12), row.height%12); //integers are returned as javascript ints
+      //res.send(row);
+      res.send("Beatle name: "+ row.name //Beatle name: John
+      +"Beatle birth year: "+ row.birthday.getYear() //dates are returned as javascript dates
+      +"Beatle height: "+ Math.floor(row.height/12)+ row.height%12); //integers are returned as javascript ints
     });
 });
 
