@@ -23,17 +23,12 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  app.use(express.bodyParser({uploadDir:'./public/uploads'}));
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.session());
-  app.use(express.bodyParser(
-    {
-      uploadDir: __dirname + '/uploads',
-      keepExtensions: true
-    }));
 });
 
 app.configure('development', function(){
