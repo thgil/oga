@@ -11,6 +11,7 @@
 - [Ejs](http://embeddedjs.com) Backend view engine
 - [gm](http://aheckmann.github.com/gm/) Image manipulation
 - [imagemagick](http://www.imagemagick.org) gm is based of this.
+- [fs](http://nodejs.org/api/fs.html) Backend File system
 
 ##Installation
 Make a folder somewhere called opengameart.
