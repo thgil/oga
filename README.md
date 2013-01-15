@@ -14,6 +14,7 @@
 - [fs](http://nodejs.org/api/fs.html) Middleware File system
 - [toobusy](https://github.com/lloyd/node-toobusy) Middleware Backend load failure handler;
 - [connect-cachify](https://github.com/mozilla/connect-cachify/) Middleware caching and concatenating
+- [client-sessions](https://github.com/benadida/node-client-sessions)
 
 ##Installation
 Make a folder somewhere called opengameart.
