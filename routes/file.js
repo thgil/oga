@@ -24,7 +24,7 @@ exports.post = function(req, res){
       // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
       fs.unlink(tmp_path, function() {
           if (err) throw err;
-          res.send('File uploaded to: ' + target_path + ' - ' + req.files.image.size + ' bytes');
+          res.render('file', { path: target_path, size: req.files.image.size });
       });
   });
 };

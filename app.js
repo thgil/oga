@@ -10,6 +10,9 @@ var express = require('express')
   , format = require('util').format
   , gm = require('gm'); 
 
+// for pg
+// http://stackoverflow.com/questions/12915154/express-route-share-variables
+
 /**
  * Routes.
  */
