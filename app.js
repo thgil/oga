@@ -23,7 +23,7 @@ var app = express();
 /**
  * Database setup.
  */
-var conString = process.env.DATABASE_URL || "tcp://postgres:egbdf@localhost/ogatest";
+var conString = process.env.DATABASE_URL || "tcp://postgres:1234@localhost/ogatest";
 
 var client = new pg.Client(conString);
 client.connect();
