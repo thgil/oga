@@ -11,7 +11,9 @@
 - [Ejs](http://embeddedjs.com) Backend view engine
 - [gm](http://aheckmann.github.com/gm/) Image manipulation
 - [imagemagick](http://www.imagemagick.org) gm is based of this.
-- [fs](http://nodejs.org/api/fs.html) Backend File system
+- [fs](http://nodejs.org/api/fs.html) Middleware File system
+- [toobusy](https://github.com/lloyd/node-toobusy) Middleware Backend load failure handler;
+- [connect-cachify](https://github.com/mozilla/connect-cachify/) Middleware caching and concatenating
 
 ##Installation
 Make a folder somewhere called opengameart.

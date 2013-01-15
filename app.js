@@ -8,7 +8,10 @@ var express = require('express')
   , path = require('path')
   , pg = require('pg')
   , format = require('util').format
-  , gm = require('gm'); 
+  , gm = require('gm')
+  , toobusy = require('toobusy')
+  , cachify = require('connect-cachify')
+  , clientSessions = require("client-sessions"); 
 
 /**
  * Routes.
@@ -38,6 +41,20 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+});
+
+app.use(function(req, res, next) {
+  // check if we're toobusy() - note, this call is extremely fast, and returns
+  // state that is calculated asynchronously.  
+  if (toobusy()) {console.log("poop");res.send(503, "I'm busy right now, sorry.");}
+  else next();
+});
+
+app.get('/', function(req, res) {
+  // processing the request requires some work!
+  var i = 0;
+  while (i < 1e8) i++;
+  res.send("I counted to " + i);
 });
 
 app.get('/', routes.index);
