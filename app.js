@@ -43,19 +43,12 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.use(function(req, res, next) {
-  // check if we're toobusy() - note, this call is extremely fast, and returns
-  // state that is calculated asynchronously.  
-  if (toobusy()) {console.log("poop");res.send(503, "I'm busy right now, sorry.");}
-  else next();
-});
-
-app.get('/', function(req, res) {
-  // processing the request requires some work!
-  var i = 0;
-  while (i < 1e8) i++;
-  res.send("I counted to " + i);
-});
+// app.get('/', function(req, res) {
+//   // processing the request requires some work!
+//   var i = 0;
+//   while (i < 1e10) i++;
+//   res.send("I counted to " + i);
+// });
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -66,6 +59,12 @@ app.get('/users', user.list);
 app.get('/file', file.get)
 app.post('/file', file.post)
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function(req,res){
+  if (toobusy()) {
+    console.log("poop");
+    res.writeHead(503);
+    res.end();
+    return res.end();
+  }
   console.log("Express server listening on port " + app.get('port'));
 });
