@@ -11,7 +11,8 @@ var express = require('express')
   , gm = require('gm')
   , toobusy = require('toobusy')
   , cachify = require('connect-cachify')
-  , clientSessions = require("client-sessions"); 
+  , clientSessions = require("client-sessions")
+  , bcrypt = require('bcrypt');
 
 /**
  * Routes.
