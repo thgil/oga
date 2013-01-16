@@ -15,6 +15,26 @@
 - [toobusy](https://github.com/lloyd/node-toobusy) Middleware Backend load failure handler;
 - [connect-cachify](https://github.com/mozilla/connect-cachify/) Middleware caching and concatenating
 - [client-sessions](https://github.com/benadida/node-client-sessions)
+- [bcrypt](https://github.com/ncb000gt/node.bcrypt.js/)
+
+##Security
+Why bcrypt?
+[Here](http://codahale.com/how-to-safely-store-a-password/)
+and [more](http://en.wikipedia.org/wiki/Crypt_(Unix)#Blowfish-based_scheme)
+and a [Paper by provos](http://static.usenix.org/events/usenix99/provos/provos.pdf)
+
+##Toobusy
+This lets us timeout a client connection if we can't handle it at. This is better then letting the client hang.
+
+##Connect-cachify
+This makes 'for production' js min files and css files(concatenating). It also caches them for faster access.
+
+##client-sessions
+Why use this? This stores session info on the client browser instead server-side. Faster + scalablity.
+Downside is trusting the client not to edit the sessions but this library is secure and tamper-free!
+
+##gm
+Image stuff. Useful for image effects and indirectly useful for thumbnailing things.
 
 ##Installation
 Make a folder somewhere called opengameart.
