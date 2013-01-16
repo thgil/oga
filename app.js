@@ -20,7 +20,9 @@ var express = require('express')
 
 var routes = require('./routes')
   , user = require('./routes/user')
-  , file = require('./routes/file');
+  , file = require('./routes/file')
+  , bcrypt = require('./routes/bcrypt');
+
 
 var app = express();
 
@@ -53,6 +55,8 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/bcrypt', bcrypt.get)
+app.post('/bcrypt', bcrypt.b)
 
 /**
  * File uploading.
