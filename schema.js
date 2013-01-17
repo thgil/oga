@@ -8,7 +8,7 @@ if(process.argv.length != 3) return console.log("Usage: node schema [ups/downs]"
 // Create tables code
 else if(process.argv[2] == "ups") { //, email varchar(16) not null, password not null
   client.connect();
-	query = client.query("create table users(uid serial primary key , username varchar(16) not null unique, password varchar(32) not null, email varchar(64) not null unique, timestamp timestamp without time zone not null DEFAULT now())");
+	query = client.query("create table users(uid serial primary key , username varchar(16) not null unique, password varchar(32) not null, email varchar(64) not null unique, timestamp timestamp without time zone not null DEFAULT now(),unique(username,email))");
 	query.on('end', function() { client.end(); });
   console.log("Tables created.")
 }

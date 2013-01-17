@@ -66,7 +66,7 @@ app.get('/file', file.get);
  * Routes POST
  */
 app.post('/file', file.post);
-//app.post('/login', user.login);
+app.post('/login', user.login);
 app.post('/register', user.register);
 
 http.createServer(app).listen(app.get('port'), function(){

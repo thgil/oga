@@ -1,27 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script type="text/javascript">
-      function validateForm()
-      {
-        var x=document.forms["reg"]["username"].value;
-        if (x==null || x=="")
-          {
-          alert("First name must be filled out");
-          return false;
-          }
-      }
-    </script>
   </head>
   <body>
-      <% if(typeof error != 'undefined') {%>
-      <%=error%>
-      <% if(error == 0) {%>Fill out all the fields bro. <%}%>
-      <% if(error == 1) {%>Username already exist bro. <%}%>
-      <% if(error == 2) {%>Email already exist bro. <%}%>
-      <% if(error == 3) {%>Something went wrong! <%}%>
-      <%}%>
-      <form name="reg" method="post" onsubmit="return validateForm()" >
+      <% if(typeof error != 'undefined') {%><%= error %><%}%>
+      <form name="reg" method="post">
         <p>Username: <input type="text" name="username"></p>
         <p>Password:<input type="password" name="password"></p>
         <p>Email:<input type="text" name="email"></p>
