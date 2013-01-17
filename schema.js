@@ -1,24 +1,23 @@
-var pg = require('pg').native
+var pg = require('pg')
   , conString = process.env.DATABASE_URL || "tcp://postgres:1234@localhost/ogatest"
   , query;
 
+  var client = new pg.Client(conString);
+
 if(process.argv.length != 3) return console.log("Usage: node schema [ups/downs]");
-
-else if(process.argv[2] == "ups") { 
-
-	// Create tables code
-
-	return console.log("Created tables.");
+// Create tables code
+else if(process.argv[2] == "ups") { //, email varchar(16) not null, password not null
+  client.connect();
+	query = client.query("create table users(uid serial primary key , username varchar(16) not null unique, password varchar(32) not null, email varchar(64) not null unique, timestamp timestamp without time zone not null DEFAULT now(),unique(username,email))");
+	query.on('end', function() { client.end(); });
+  console.log("Tables created.")
 }
+// Drop tables code
 else if(process.argv[2] == "downs") {
-
-	// Drop tables code
-
-	return console.log("Dropped tables.");
+  client.connect();
+	query = client.query("drop table users");
+  query.on('end', function() { client.end(); });
+	return console.log("Tables dropped.");
 }
 
 else return console.log("Options: ups or downs");
-//client = new pg.Client(conString);
-//client.connect();
-//query = client.query("CREATE TABLE beatles(name varchar(10), height integer, birthday timestamptz)");
-//query.on('end', function() { client.end(); });
