@@ -24,8 +24,8 @@ var routes = require('./routes')
 /**
  * Database connection.
  */
-  var conString = process.env.DATABASE_URL || "tcp://postgres:1234@localhost/ogatest"
-  , client = new pg.Client(conString);
+//  var conString = process.env.DATABASE_URL || "tcp://postgres:1234@localhost/ogatest"
+//  , client = new pg.Client(conString);
 
 /**
  * Server config.
@@ -43,10 +43,6 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.session());
-  app.use(function (req, res, next) {
-    req.client = res.client = client;
-    next();
-  });
 });
 
 app.configure('development', function(){
