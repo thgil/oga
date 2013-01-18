@@ -18,7 +18,7 @@ else if(process.argv[2] == "ups") { //, email varchar(16) not null, password not
                             ", unique(username,email))");
 	files = client.query("create table files(fid serial primary key"+
                             ", uid int references users(uid)"+
-                            ", name varchar(64) not null"+
+                            ", filename varchar(64) not null"+
                             ", date timestamp DEFAULT now())");
 
   console.log("Tables users and files created.")
