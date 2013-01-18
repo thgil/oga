@@ -28,12 +28,19 @@ var routes = require('./routes')
 
 
 /**
+ * Database connection.
+ */
+//  var conString = process.env.DATABASE_URL || "tcp://postgres:1234@localhost/ogatest"
+//  , client = new pg.Client(conString);
+
+/**
  * Server config.
  */
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  app.engine('html', require('ejs').renderFile);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser({uploadDir:'./public/uploads'}));
@@ -48,15 +55,29 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+<<<<<<< HEAD
+// app.get('/', function(req, res) {
+//   // processing the request requires some work!
+//   var i = 0;
+//   while (i < 1e10) i++;
+//   res.send("I counted to " + i);
+// });
+
+=======
 /*
  * Routes GET
  */
+>>>>>>> Postgresql
 app.get('/', routes.index);
 app.get('/login', user.login);
 app.get('/register', user.register);
 app.get('/users', user.list);
+<<<<<<< HEAD
 app.get('/bcrypt', bcrypt.get)
 app.post('/bcrypt', bcrypt.b)
+=======
+app.get('/file', file.get);
+>>>>>>> Postgresql
 
 /*
  * Routes POST
