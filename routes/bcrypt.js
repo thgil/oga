@@ -6,8 +6,15 @@ exports.get = function(req, res){
     + '</form>');
 };
 
-exports.b = function(req, res, data){
-	console.log(bcrypt.hash(req.body.string, 10, function(err, hash) {
-		res.send(req.body.string +" becomes "+ hash);
-	}));
+exports.b = function(req, res){
+  bcrypt.genSalt(12, function(err, salt) {
+    console.log("made salt:" +salt );
+    bcrypt.hash(req.body.string, salt, function(err, hash) {
+        console.log("made hash:" +hash);
+        bcrypt.compare(req.body.string, hash, function(err, res) {
+          console.log("res is "+res);
+        });
+        res.send(req.body.string +" becomes "+ hash + " with salt: " + salt);
+    });
+  });
 };

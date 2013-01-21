@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+
+ <link rel="stylesheet" href="css/clock.css" type="text/css" media="all" />
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/clock.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function() {CountDown({
+              secondsColor : "#378cff",
+              secondsGlow  : "#378cff",
+              
+              
+              startDate   : "1358812800",
+              endDate     : "1358899200",
+              now         : new Date().getTime() / 1000,
+              seconds     : "03"
+          });});
+        </script>
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37623599-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+<body>
+
+<div class="container">  
+  <div class="wrapper" style="margin-top:50px;">
+      
+    <div class="clock">
+        <canvas id="canvas_seconds" width="518px" height="518px"></canvas>
+    </div>
+    
+    <div class="text">
+        <img src="/images/notmegalogo.png"></img>
+        <p>NotMega</p>
+        <span>Live in</span>
+    </div>
+
+    <div class="timer">
+      <p> <span class="hrs">0</span> hours <span class="mins">0</span> minutes and <span class="secs">0</span> seconds</p>
+    </div>    
+  </div>
+</div>
+
+</body>
+</html>

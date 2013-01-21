@@ -51,7 +51,7 @@ app.configure('development', function(){
 /*
  * Routes GET
  */
-app.get('/', routes.index);
+app.get('/', function(req,res){res.render('clock');});
 app.get('/login', user.login);
 app.get('/register', user.register);
 app.get('/users', user.list);

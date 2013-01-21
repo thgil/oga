@@ -11,14 +11,17 @@ else if(process.argv[2] == "ups") { //, email varchar(16) not null, password not
   client.connect();
   client.on('drain', client.end.bind(client));
 	users = client.query("create table users(uid serial primary key"+
-                            ", username varchar(32) not null unique"+
-                            ", password varchar(32) not null"+
+                            ", username varchar(50) not null unique"+
+                            ", password varchar(50) not null"+
+                            ", salt varchar(32) not null"
                             ", email varchar(64) not null unique"+
                             ", date timestamp DEFAULT now()"+
                             ", unique(username,email))");
 	files = client.query("create table files(fid serial primary key"+
-                            ", uid int references users(uid)"+
-                            ", name varchar(64) not null"+
+                            ", uid int references users(uid)"+ // link to user (do we need this?)
+                            ", link varchar(100) not null"+ // 73 is the actual needed length
+                            ", name varchar(100) not null"+
+                            ", desc varchar(200) not null"+
                             ", date timestamp DEFAULT now())");
 
   console.log("Tables users and files created.")

@@ -1,10 +1,5 @@
 var pg = require('pg');
-var conString = "tcp://postgres:1234@localhost/ogatest"///"postgres://fdwqhlmublobos:59W7Qta39KmggCqyZeZLiVza1Z@ec2-54-243-217-96.compute-1.amazonaws.com:5432/d9h6rhgaatvha8";
-//process.env.DATABASE_URL || "tcp://postgres:1234@localhost/ogatest";
-
-exports.render =function(req, res){
-
-};
+var conString = "tcp://postgres:1234@localhost/ogatest"
 
 exports.list = function(req, res){
   res.send("respond with a resource");
