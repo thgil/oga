@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/parsley.css">
+
+    <style type="text/css">
+      body {
+          padding-top: 20px;
+          padding-bottom: 40px;
+          /*background-image:url(/images/stitched_wool.png);*/
+        }
+    </style>
+
   </head>
   <body>
-      <% if(typeof error != 'undefined') {%><%= error %><%}%>
-      <form name="reg" method="post">
-        <p>Username: <input type="text" name="username"></p>
-        <p>Password:<input type="password" name="password"></p>
-        <p>Email:<input type="text" name="email"></p>
-        <p><input type="submit"></p>
-      </form>
-  </body>
+<!--       <% if(typeof error != 'undefined') {%><%= error %><%}%> -->
+  <form class="form-horizontal" data-validate="parsley">
+    <fieldset>
+      <legend>Register</legend>
+      <div class="control-group">
+        <label class="control-label" for="username">Username</label>
+        <div class="controls">
+          <input type="text" class="input-large" id="username" name="username" placeholder="Username" data-minlength="2" data-required="true" data-trigger="change">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="email">Email</label>
+        <div class="controls">
+          <input type="text" class="input-large" id="email" name="email" placeholder="Email@gmail.com" data-required="true" data-type="email" data-trigger="change">
+        </div>
+      </div>
+       <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+          <input type="password" class="input-large" id="password"  name="password" placeholder="Password" data-minlength="5" data-required="true" data-trigger="change">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="passwordc">Confirm password</label>
+        <div class="controls">
+          <input type="password" class="input-large" id="passwordc"  name="passwordc" placeholder="Confirm password" data-required="true" data-trigger="change" data-equalTo="#password">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>  
+    </fieldset>
+  </form>
+
+<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script> 
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/parsley-standalone.min.js"></script>
+</body>
 </html>
