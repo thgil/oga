@@ -1,5 +1,5 @@
 var pg = require('pg');
-var conString = "tcp://postgres:1234@localhost/ogatest"
+var conString = "tcp://postgres:1234@localhost/ogatest";
 
 exports.list = function(req, res){
   res.send("respond with a resource");

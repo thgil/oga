@@ -3,7 +3,7 @@ var pg = require('pg')
 
 var client = new pg.Client(conString)
   , users 
-  , files;
+  , links;
 
 if(process.argv.length != 3) return console.log("Usage: node schema [ups/downs]");
 // Create tables code
@@ -13,28 +13,30 @@ else if(process.argv[2] == "ups") { //, email varchar(16) not null, password not
 	users = client.query("create table users(uid serial primary key"+
                             ", username varchar(50) not null unique"+
                             ", password varchar(50) not null"+
-                            ", salt varchar(32) not null"
+                            ", salt varchar(32) not null"+
                             ", email varchar(64) not null unique"+
                             ", date timestamp DEFAULT now()"+
                             ", unique(username,email))");
-	files = client.query("create table files(fid serial primary key"+
-                            ", uid int references users(uid)"+ // link to user (do we need this?)
+	links = client.query("create table links(fid serial primary key"+
+                            //", uid int references users(uid)"+ // link to user (do we need this?)
                             ", link varchar(100) not null"+ // 73 is the actual needed length
                             ", name varchar(100) not null"+
-                            ", desc varchar(200) not null"+
+                            ", descr varchar(200)"+
+                            ", catg varchar(50)"+
+                            ", ip varchar(50) not null"+
                             ", date timestamp DEFAULT now())");
 
-  console.log("Tables users and files created.")
+  console.log("Tables users and links created.")
 }
 // Drop tables code
 else if(process.argv[2] == "downs") {
   client.connect();
   client.on('drain', client.end.bind(client));
   //Note order matters here files depends on users.
-  files = client.query("drop table files");
+  links = client.query("drop table links");
 	users = client.query("drop table users");
 
-  console.log("Tables users and files dropped."); 
+  console.log("Tables users and links dropped."); 
 }
 
 else return console.log("Options: ups or downs");

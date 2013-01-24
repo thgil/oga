@@ -24,6 +24,7 @@ var app = express();
 var routes = require('./routes')
   , user = require('./routes/user')
   , file = require('./routes/file')
+  , link = require('./routes/link')
   , bcrypt = require('./routes/bcrypt');
 
 
@@ -51,7 +52,9 @@ app.configure('development', function(){
 /*
  * Routes GET
  */
-app.get('/', function(req,res){res.render('clock');});
+app.get('/', link.list);
+//app.get('/add/', link.add);
+//app.get('/remove/:id', link.remove);
 app.get('/login', user.login);
 app.get('/register', user.register);
 app.get('/users', user.list);
@@ -61,6 +64,7 @@ app.post('/bcrypt', bcrypt.b)
 /*
  * Routes POST
  */
+app.post('/add', link.add);
 app.post('/file', file.post);
 app.post('/login', user.login);
 app.post('/register', user.register);
