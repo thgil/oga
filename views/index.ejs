@@ -91,8 +91,8 @@
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">Add a Link</h3>
     </div>
+    <form  name="linkadd" method="post" action="/add" class="form-horizontal" data-validate="parsley">
     <div class="modal-body">
-      <form  name="linkadd" method="post" action="/add" class="form-horizontal" data-validate="parsley">
         <fieldset>
           <div class="control-group">
             <label class="control-label" for="name">Title</label>
@@ -125,12 +125,12 @@
             </div>
           </div>
         </fieldset>
-      </form>
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
       <button type="submit" class="btn btn-primary">Add Link</button>
     </div>
+    </form>
   </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
