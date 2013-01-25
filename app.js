@@ -6,16 +6,20 @@
 var express = require('express')
   , http = require('http')
   , path = require('path')
+  , util = require('util')
   , pg = require('pg')
   , format = require('util').format
   , gm = require('gm')
   , toobusy = require('toobusy')
   , cachify = require('connect-cachify')
   , clientSessions = require("client-sessions")
-  , bcrypt = require('bcrypt');
+  , bcrypt = require('bcrypt')
+  , Validator = require('validator').Validator
+  , expressValidator = require('express-validator');
 
 // Start express.
 var app = express();
+//var validator = new Validator();
 
 /**
  * Routes.
@@ -38,6 +42,7 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser({uploadDir:'./public/uploads'}));
+  app.use(expressValidator);
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(app.router);
@@ -53,21 +58,24 @@ app.configure('development', function(){
  * Routes GET
  */
 app.get('/', link.list);
-//app.get('/add/', link.add);
+app.get('/search', link.search);
+app.get('/:error', link.list);
+app.get('/:success', link.list);
+
 //app.get('/remove/:id', link.remove);
-app.get('/login', user.login);
-app.get('/register', user.register);
-app.get('/users', user.list);
-app.get('/bcrypt', bcrypt.get)
-app.post('/bcrypt', bcrypt.b)
+//app.get('/login', user.login);
+//app.get('/register', user.register);
+//app.get('/users', user.list);
+//app.get('/bcrypt', bcrypt.get)
+//app.post('/bcrypt', bcrypt.b)
 
 /*
  * Routes POST
  */
 app.post('/add', link.add);
-app.post('/file', file.post);
-app.post('/login', user.login);
-app.post('/register', user.register);
+//app.post('/file', file.post);
+//app.post('/login', user.login);
+//app.post('/register', user.register);
 
 http.createServer(app).listen(app.get('port'), function(req,res){
   if (toobusy()) {

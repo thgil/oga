@@ -13,9 +13,13 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap-responsive.css">
   <style>
+    html {
+      background-image: url("/img/subtlenet2.png");
+    }
     body {
         padding-top: 60px;
         padding-bottom: 40px;
+        background-image: url("/img/subtlenet2.png");
     }
   </style>
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui.min.css">
@@ -42,14 +46,14 @@
 
               <a href="#linkadd" role="button" class="btn btn-primary pull-right span2" data-toggle="modal">Add a link!</a>
               
-              <form class="navbar-search" action="/search">
-                <input type="text" class="search-query span3" placeholder="Search links">
+              <form class="navbar-search" action="/search" method="get">
+                <input type="text" class="search-query span3" placeholder="Search links" name="name">
               </form>
             </div><!--/.nav-collapse -->
         </div>
     </div>
 </div>
-<div class="container">
+<div  class="container">
 
       <% if(typeof rows != 'undefined') {%>
       <div class="row-fluid">
@@ -59,7 +63,6 @@
               <tr>
                 <th>Fid</th>
                 <th>Link</th>
-                <th>Name</th>
                 <th>Descr</th>
                 <th>Catg</th>
                 <th>IP</th>
@@ -70,8 +73,7 @@
               <% for(var i=0;i<rows.length;i++) {%>
               <tr>
                 <td> <%=rows[i].fid %> </td>
-                <td> <%=rows[i].link %> </td>
-                <td> <%=rows[i].name%> </td>
+                <td> <a href="<%=rows[i].link %>"><%=rows[i].name%></a> </td>
                 <td> <%=rows[i].descr%> </td>
                 <td> <%=rows[i].catg%> </td>
                 <td> <%=rows[i].ip%> </td>
@@ -109,7 +111,7 @@
           <div class="control-group">
             <label class="control-label" for="link">Link</label>
             <div class="controls">
-              <input type="text" class="input-large" id="link" name="link" placeholder="Enter link here" data-type="url" required>
+              <input type="text" class="input-large" id="link" name="link" placeholder="Enter link here" data-type="urlstrict" required>
             </div>
           </div>
           <div class="control-group">
@@ -132,6 +134,18 @@
     </div>
     </form>
   </div>
+<% if (typeof error != 'undefined') {%>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> Best check yo self, you're not looking too good.
+  </div>
+<%}%>
+<% if (typeof success != 'undefined') {%>
+  <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Link added!</strong> <%=success%>
+  </div>
+<%}%>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.9.0.min.js"><\/script>')</script>

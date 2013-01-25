@@ -10,6 +10,10 @@ if(process.argv.length != 3) return console.log("Usage: node schema [ups/downs]"
 else if(process.argv[2] == "ups") { //, email varchar(16) not null, password not null
   client.connect();
   client.on('drain', client.end.bind(client));
+  //add create extension if not exists fuzzystrmatch;
+
+  var fuzzy = client.query("create extension if not exists fuzzystrmatch");
+
 	users = client.query("create table users(uid serial primary key"+
                             ", username varchar(50) not null unique"+
                             ", password varchar(50) not null"+
