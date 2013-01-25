@@ -98,7 +98,7 @@ console.log("test");
       name = req.query["name"];
     };
 
-  query = client.query("select * from links where levenshtein(name,$1) <= 3 order by levenshtein(name,$1) limit $2 offset $3",[name,pagesize,offset], function(err,result){
+  query = client.query("select * from links where levenshtein(name,$1) <= 5 order by levenshtein(name,$1) limit $2 offset $3",[name,pagesize,offset], function(err,result){
     res.render('index',{rows:result.rows})
   });
 
