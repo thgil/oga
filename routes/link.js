@@ -15,12 +15,25 @@ exports.list = function(req, res){
 
   client = new pg.Client(conString);
   client.connect();
-
-  var orderby = "date::Date";
+  var orderby = "name::text ASC";
   var pagesize = "1000";
   var offset = "0";
-  query = client.query("select * from links order by $1 limit $2 offset $3",[orderby,pagesize,offset],function(err, result) { 
 
+  if (req.method) {
+    req.query["order"]
+    try {
+      check(link,"link").regex('(https://|http://)(www.|)mega.co.nz/#!.{52}$'); //"That link isn't valid!"
+      check(name,"name").len(2,100);//"That name length won't work"
+      check(catg,"catg").regex('(Video|Audio|Images|Games|Ebooks|Documents|Other)');//"That isn't a catergory?!"
+      check(descr,"descr").len(0,200);//"Too much description!"
+  } catch (e) {
+      console.log(e.message);
+      var orderby = "fid desc"
+  }
+}
+
+  query = client.query("select * from links order by $1 limit $2 offset $3",[orderby,pagesize,offset],function(err, result) { 
+    console.log("err: " + err);
     client.end();
     if (req.method) {
         res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"]});
@@ -38,6 +51,8 @@ exports.add = function(req, res){
   descr = req.body.descr;
   catg = req.body.catg;
   ip = req.ip;
+
+  console.log(link);
 
   try {
       check(link,"link").regex('(https://|http://)(www.|)mega.co.nz/#!.{52}$'); //"That link isn't valid!"
