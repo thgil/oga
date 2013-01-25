@@ -1,42 +1,35 @@
-var pg = require('pg');
+var pg = require('pg')
+  , check = require('validator').check;
+
 var conString = "tcp://postgres:1234@localhost/ogatest"
   , query
   , client;
 
+var test1 = "https://mega.co.nz/#!HUllDJ4L!TsnIFksZDL0HkJNYZ1cR2nE4HQNIAhS1Gx9x2zW0Sfc";
+var test2 = ".len(2,50)";
+var test3 = "Video";
+var test4 = "safafdsfasdgdsgasdgasg";
+
+
 exports.list = function(req, res){
+
   client = new pg.Client(conString);
   client.connect();
 
   var orderby = "date::Date";
-  var pagesize = "10";
+  var pagesize = "1000";
   var offset = "0";
   query = client.query("select * from links order by $1 limit $2 offset $3",[orderby,pagesize,offset],function(err, result) { 
 
-    //Pass gaint array here
-    //data type like {rows, page, offset, total}
-
-    console.log("resultlength: "+result.rows.length);
-    console.log("result: "+result.rows);
     client.end();
-    res.render('index',{rows:result.rows});
+    if (req.method) {
+        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"]});
+    } else res.render('index',{rows:result.rows});
   });
 
-  query.on('row', function(row) {
-    console.log ("fid: "+row.fid+" link: "+row.link+" ,name: "+row.name+" ,descr: "+row.descr+" ,catg: "+row.catg+" ,ip: "+row.ip);
-  });
-  // query.on('end', function(result) {
-  //   //Pass gaint array here
-  //   //data type like {rows, page, offset, total}
-  //   console.log("resultlength: "+result.rows.length);
-  //   console.log("result: "+result.rows);
-  //   client.end();
-  //   res.redirect('/');
-  // });
 };
 
 exports.add = function(req, res){
-  client = new pg.Client(conString);
-  client.connect();
 
   var link,name,desc,catg,ip;
 
@@ -44,18 +37,26 @@ exports.add = function(req, res){
   name = req.body.name;
   descr = req.body.descr;
   catg = req.body.catg;
-  ip = req.connection.remoteAddress;
+  ip = req.ip;
 
+  try {
+      check(link,"link").regex('(https://|http://)(www.|)mega.co.nz/#!.{52}$'); //"That link isn't valid!"
+      check(name,"name").len(2,100);//"That name length won't work"
+      check(catg,"catg").regex('(Video|Audio|Images|Games|Ebooks|Documents|Other)');//"That isn't a catergory?!"
+      check(descr,"descr").len(0,200);//"Too much description!"
+  } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+  }
 
-  console.log ("link: "+link+" ,name: "+name+" ,descr: "+descr+" ,catg: "+catg+" ,ip: "+ip);
-
-  // CHECK THE THINGS HERE TO STOP NASTY INJECTIOnS :I
+  client = new pg.Client(conString);
+  client.connect();
 
   query = client.query("insert into links(link, name, descr, catg, ip) values($1,$2,$3,$4,$5)",[link,name,descr,catg,ip]);
 
   query.on('end', function() {
     client.end();
-    res.redirect('/');
+    res.redirect('/?success='+name);
   });
 };
 
@@ -80,5 +81,34 @@ exports.remove = function(req, res){
 };
 
 exports.edit = function(req, res){
+
+};
+
+exports.search = function(req, res){
+console.log("test");
+
+  client = new pg.Client(conString);
+  client.connect();
+
+  var name = "";
+  var pagesize = "10";
+  var offset = "0";
+
+  if (req.method) {
+      console.log(req.query["name"]);
+      name = req.query["name"];
+    };
+
+  query = client.query("select * from links where levenshtein(name,$1) <= 3 order by levenshtein(name,$1) limit $2 offset $3",[name,pagesize,offset], function(err,result){
+    res.render('index',{rows:result.rows})
+  });
+
+
+
+};
+
+exports.autosearch = function(req, res){
+  client = new pg.Client(conString);
+  client.connect();
 
 };
