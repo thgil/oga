@@ -48,6 +48,14 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.session());
+  app.use(function(req, res, next){
+    res.status(404);
+    if (req.accepts('html')) {
+      res.send('what???', 404);
+      //res.render('404', { url: req.url });
+      return;
+    }
+  });
 });
 
 app.configure('development', function(){
@@ -61,7 +69,6 @@ app.get('/', link.list);
 app.get('/search', link.search);
 app.get('/:error', link.list);
 app.get('/:success', link.list);
-
 //app.get('/remove/:id', link.remove);
 //app.get('/login', user.login);
 //app.get('/register', user.register);
@@ -81,7 +88,6 @@ http.createServer(app).listen(app.get('port'), function(req,res){
   if (toobusy()) {
     console.log("poop");
     res.writeHead(503);
-    res.end();
     return res.end();
   }
   console.log("Express server listening on port " + app.get('port'));

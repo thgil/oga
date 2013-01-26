@@ -14,12 +14,12 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap-responsive.css">
   <style>
     html {
-      background-image: url("/img/subtlenet2.png");
+     
     }
     body {
         padding-top: 60px;
         padding-bottom: 40px;
-        background-image: url("/img/subtlenet2.png");
+        
     }
   </style>
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui.min.css">
@@ -27,11 +27,14 @@
 
   <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
-  <body>
+<body>
 
       <!--[if lt IE 7]>
           <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
       <![endif]-->
+
+<% if (typeof page === 'undefined') page=1 %>
+<% if (typeof pagesize === 'undefined') pagesize=10 %>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -53,39 +56,54 @@
         </div>
     </div>
 </div>
-<div  class="container">
 
-      <% if(typeof rows != 'undefined') {%>
-      <div class="row-fluid">
-        <div id="container-table">
-          <table class="table table-striped table-hover" id="table-5">
-            <thead>
-              <tr>
-                <th>Fid</th>
-                <th>Link</th>
-                <th>Descr</th>
-                <th>Catg</th>
-                <th>IP</th>
-                <th>Options</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for(var i=0;i<rows.length;i++) {%>
-              <tr>
-                <td> <%=rows[i].fid %> </td>
-                <td> <a href="<%=rows[i].link %>"><%=rows[i].name%></a> </td>
-                <td> <%=rows[i].descr%> </td>
-                <td> <%=rows[i].catg%> </td>
-                <td> <%=rows[i].ip%> </td>
-                <td> <i class="icon-star"></i> <i class="icon-trash"></i> </td>
-              </tr>
-              <%}%>
-            </tbody>
-          </table>
-        </div>
+<div class="container">
+  <div class="row-fluid">
+    <div class="span1"></div>
+    <div class="span10">
+      <div id="container-table">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th style="width: 5%"></th>
+              <th style="width: 5%"><i class="icon-chevron-up"></i></th>
+              <th style="width: 10%">Category <i class="icon-chevron-up"></th>
+              <th>Link <i class="icon-chevron-up"></th>
+              <th style="width: 5%">Options</th>
+              <th style="width: 5%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0;i<rows.length;i++) {%>
+            <tr>
+              <td></td>
+              <td><%=(page-1)*pagesize+i+1%></td>
+              <td><%=rows[i].catg%></td>
+              <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
+              <td><i class="icon-ban-circle"></i> <i class="icon-pencil"></i> <i class="icon-trash"></i> </td>
+              <td></td>
+            </tr>
+            <%}%>
+          </tbody>
+        </table>
       </div>
-      <%}%>
+    </div>
+  </div>
+<!-- Pagination! -->
+<div class="pagination pagination-large pagination-centered">
+  <ul>
+    <%if(page<=1){%><li class="deactive"><span>Prev</span></li>
+    <%} else {%> <li><a href="/?page=<%=page-1%>">Prev</a></li> <%}%>
+    <li><a href="/?page=<%=page%>"><%=page%></a></li>
+    <% if(rows.length<pagesize){%> <li class="deactive"><span>Next</span></li> 
+    <%} else {%> <li><a href="/?page=<%=++page%>">Next</a></li> <%}%>
+  </ul>
+</div>
+
+<p class="muted pull-right"> Terms of service shit here? <a href="http://www.google.com/search?q=tos">TOS</a> and <a href="http://www.google.com/search?q=DMCA">DMCA</a>.</p>
+
 </div><!-- /container -->
+
 
 <!-- Modal -->
   <div id="linkadd" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="linkadd" aria-hidden="true">
@@ -146,6 +164,7 @@
     <strong>Link added!</strong> <%=success%>
   </div>
 <%}%>
+
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.9.0.min.js"><\/script>')</script>
