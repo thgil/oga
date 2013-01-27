@@ -12,56 +12,106 @@ exports.list = function(req, res){
   var orderby = "date desc";
   var pagesize = 25;
   var offset = 0; //pagenumber
+  var page = 1;
+  var type;
+  var finalorder;
 
-//  console.log(req.query["page"]);
-
-  if (req.method) {
-    if(typeof req.query["order"] != 'undefined') { // Order by filter
-      console.log(req.query["order"]);
-      try {
-        check(req.query["order"],"Order invalid").regex('(catg|name|date) (asc|desc)$');
-        orderby = req.query["order"];
-      } catch (e) {
-        res.redirect('/?error='+e.message);
-        console.log(e.message);
-        orderby = "date desc";
-        return;
-      }
-    } else orderby = "date desc";
-    if(typeof req.query["pagesize"]!='undefined') { // Page size
-      try {
-        check(req.query["pagesize"],"What kindof pagesize is this?!").isInt().min(1).max(1000);
-        pagesize = req.query["pagesize"];
-      } catch (e) {
-        res.redirect('/?error='+e.message);
-        console.log(e.message);
-        pagesize = 100;
-        return;
-      }
-    } else pagesize = 25;
-    if(typeof req.query["page"]!='undefined') { // Page number
-      try {
-        check(req.query["page"],"What kindof pagenumber is this?!").isInt().min(1).max(1000);
-        console.log("page: "+req.query["page"]);
-        offset = (req.query["page"]-1) * pagesize;
-        console.log("offset: "+offset);
-      } catch (e) {
-        res.redirect('/?error='+e.message);
-        console.log(e.message);
-        offset = 0;
-        return;
-      }
-    } else offset = 0;
+// Give the browser some session info
+  if(typeof req.session.orderby === 'undefined') req.session.orderby = orderby;
+  else {
+    try {
+      check(req.session.orderby,"Order session invalid").regex('(catg|name|date) (asc|desc)$');
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      delete req.session.orderby;
+      return;
+    }
   }
+  if(typeof req.session.pagesize === 'undefined') req.session.pagesize = pagesize;
+  else {
+    try {
+      check(req.session.pagesize,"What kindof pagesize session is this?!").isInt().min(1).max(1000);
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      delete req.session.pagesize;
+      return;
+    }
+  }
+  if(typeof req.session.page === 'undefined') req.session.page = page;
+  else {
+    try {
+      check(req.session.page,"What kindof pagenumber session is this?!").isInt().min(1).max(1000);
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      delete req.session.page;
+      return;
+    }
+  }
+//  if(typeof req.session.type === 'undefined') req.session.type = type;
 
-  query = client.query("select * from links order by "+orderby+" limit $1 offset $2",[pagesize,offset],function(err, result) { 
-    console.log("err: " + err);
-    client.end();
-    if (req.method) {
-      res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: req.query["page"], pagesize: pagesize});
-    } else res.render('index',{rows:result.rows, page: req.query["page"], pagesize: pagesize});
-  });
+// Check GET data and use it if clean else use session data.
+  if(typeof req.query["order"] != 'undefined') { // Order by filter
+    try {
+      console.log("order:"+req.query["order"]);
+      check(req.query["order"],"Order invalid").regex('(catg|name|date) (asc|desc)$');
+      orderby = req.query["order"];
+      req.session.orderby = orderby;
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+    }
+  } else orderby = req.session.orderby;
+  if(typeof req.query["pagesize"]!='undefined') { // Page size
+    try {
+      check(req.query["pagesize"],"What kindof pagesize is this?!").isInt().min(1).max(1000);
+      pagesize = req.query["pagesize"];
+      req.session.pagesize = pagesize;
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+    }
+  } else pagesize = req.session.pagesize;
+  if(typeof req.query["page"]!='undefined') { // Page number
+    try {
+      check(req.query["page"],"What kindof pagenumber is this?!").isInt().min(1).max(1000);
+      page = req.query["page"];
+      req.session.page = page;
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+    }
+  } else page = req.session.page;
 
+  offset = (page-1) * pagesize;
+  finalorder = orderby;
+
+  if(orderby == "name asc") finalorder = "lower(name) asc";
+  else if(orderby == "name desc") finalorder = "lower(name) desc";
+
+  if(typeof req.query["type"]==='undefined') {
+    query = client.query("select * from links order by "+finalorder+" limit $1 offset $2",[pagesize,offset],function(err, result) { 
+      console.log("err: " + err);
+      client.end();
+      if (req.method) {
+        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], order:orderby, page: page, pagesize: pagesize});
+      } else res.render('index',{rows:result.rows, order:orderby, page: page, pagesize: pagesize});
+    });
+  } else { 
+    try {
+      check(req.query["type"],"What kindof type is this?!").regex('(Video|Audio|Images|Games|Ebooks|Documents|Other)');
+      type = req.query["type"];
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+    }
+    query = client.query("select * from links where catg="+type+" order by "+orderby+" limit $1 offset $2",[pagesize,offset],function(err, result) { 
+      console.log("err: " + err);
+      client.end();
+      if (req.method) {
+        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize});
+      } else res.render('index',{rows:result.rows, page: page, pagesize: pagesize});
+    });
+  }
 };
 
 exports.add = function(req, res){
@@ -73,8 +123,6 @@ exports.add = function(req, res){
   descr = req.body.descr;
   catg = req.body.catg;
   ip = req.ip;
-
-  console.log(link);
 
   try {
     check(link,"link").regex('(https://|http://)(www.|)mega.co.nz/#!.{52}$'); //"That link isn't valid!"
@@ -123,7 +171,6 @@ exports.edit = function(req, res){
 };
 
 exports.search = function(req, res){
-console.log("test");
 
   client = new pg.Client(conString);
   client.connect();

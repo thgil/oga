@@ -14,13 +14,13 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap-responsive.css">
   <style>
     html {
-     
+      min-width:490px;
     }
-    body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-        
-    }
+    .navpad {
+      padding-top: 50px;
+
+    };
+
   </style>
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="/css/parsley.css">
@@ -33,62 +33,79 @@
           <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
       <![endif]-->
 
-<% if (typeof page === 'undefined') page=1 %>
-<% if (typeof pagesize === 'undefined') pagesize=10 %>
+<% if (typeof order === 'undefined') order ="date desc"; %>
+<% if (typeof page === 'undefined') page=1; %>
+<% if (typeof pagesize === 'undefined') pagesize=10; %>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="#">NotMega</a>
-            <div class="nav-collapse collapse">
-              <ul class="nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#contact">Contact</a></li>
-              </ul>  
 
-              <a href="#linkadd" role="button" class="btn btn-primary pull-right span2" data-toggle="modal">Add a link!</a>
+            <form class="navbar-form navbar-search pull-left" action="/search" method="get">
+              <input type="text" class="search-query" placeholder="Search links" name="name">
+            </form>
+
+            <a href="#linkadd" role="button" class="btn btn-primary btn-custom-width pull-right" style = "width: 160px;" data-toggle="modal">Add a link!</a>
               
-              <form class="navbar-search" action="/search" method="get">
-                <input type="text" class="search-query span3" placeholder="Search links" name="name">
-              </form>
-            </div><!--/.nav-collapse -->
         </div>
     </div>
 </div>
 
-<div class="container">
-  <div class="row-fluid">
-    <div class="span1"></div>
-    <div class="span10">
-      <div id="container-table">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th style="width: 5%"></th>
-              <th style="width: 5%"><i class="icon-chevron-up"></i></th>
-              <th style="width: 10%">Category <i class="icon-chevron-up"></th>
-              <th>Link <i class="icon-chevron-up"></th>
-              <th style="width: 5%">Options</th>
-              <th style="width: 5%"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for(var i=0;i<rows.length;i++) {%>
-            <tr>
-              <td></td>
-              <td><%=(page-1)*pagesize+i+1%></td>
-              <td><%=rows[i].catg%></td>
-              <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
-              <td><i class="icon-ban-circle"></i> <i class="icon-pencil"></i> <i class="icon-trash"></i> </td>
-              <td></td>
-            </tr>
-            <%}%>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="container navpad">
+  <% if (typeof error != 'undefined') {%>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <%=error%>.
   </div>
+<%}%>
+<% if (typeof success != 'undefined') {%>
+  <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Link added!</strong> <%=success%>
+  </div>
+<%}%>
+  <div id="container-table">
+    <table class="table table-striped table-hover table-condensed">
+      <thead>
+        <tr>
+          
+          <th style="width: 15%">
+             <%if(order=="date asc"){%><a href="/?order=date desc">Date <i class="icon-chevron-up"></i></a>
+            <%}else if(order=="date desc"){%><a href="/?order=date asc">Date <i class="icon-chevron-down"></i></a>
+            <% } else {%><a href="/?order=date asc">Date</a> <%}%>
+          </th>
+          <th style="width: 10%">
+            <%if(order=="catg asc"){%><a href="/?order=catg desc">Category <i class="icon-chevron-up"></i></a>
+            <%}else if(order=="catg desc"){%><a href="/?order=catg asc">Category <i class="icon-chevron-down"></i></a>
+            <% } else {%><a href="/?order=catg asc">Category</a> <%}%>
+          </th>
+          <th>
+            <%if(order=="name asc"){%><a href="/?order=name desc">Link <i class="icon-chevron-up"></i></a>
+            <%}else if(order=="name desc"){%><a href="/?order=name asc">Link <i class="icon-chevron-down"></i></a>
+            <% } else {%><a href="/?order=name asc">Link</a> <%}%>
+          </th>
+          <th style="width: 5%">
+            Options
+          </th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i=0;i<rows.length;i++) {%>
+        <tr>
+          
+          <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
+          <td><%=rows[i].date.toString().slice(4,15)%></td>
+          <td><%=rows[i].catg%></td>
+          <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
+          <td><i class="icon-ban-circle"></i> <i class="icon-pencil"></i> <i class="icon-trash"></i> </td>
+          
+        </tr>
+        <%}%>
+      </tbody>
+    </table>
+</div>
 <!-- Pagination! -->
 <div class="pagination pagination-large pagination-centered">
   <ul>
@@ -100,7 +117,7 @@
   </ul>
 </div>
 
-<p class="muted pull-right"> Terms of service shit here? <a href="http://www.google.com/search?q=tos">TOS</a> and <a href="http://www.google.com/search?q=DMCA">DMCA</a>.</p>
+<p class="muted" style="text-align: center"><a href="http://www.google.com/search?q=tos">TOSM</a> . <a href="http://www.google.com/search?q=DMCA">DMCA</a></p>
 
 </div><!-- /container -->
 
@@ -154,19 +171,6 @@
     </div>
     </form>
   </div>
-<% if (typeof error != 'undefined') {%>
-  <div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> Best check yo self, you're not looking too good.
-  </div>
-<%}%>
-<% if (typeof success != 'undefined') {%>
-  <div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Link added!</strong> <%=success%>
-  </div>
-<%}%>
-
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.9.0.min.js"><\/script>')</script>

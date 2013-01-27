@@ -44,10 +44,14 @@ app.configure(function(){
   app.use(express.bodyParser({uploadDir:'./public/uploads'}));
   app.use(expressValidator);
   app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
+  app.use(clientSessions({
+    cookieName: 'session_state',    // defaults to session_state
+    secret: 'supersecretkeynamehere1', // MUST be set
+    duration: 24 * 60 * 60 * 1000, // defaults to 1 day
+  }));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.session());
+
   app.use(function(req, res, next){
     res.status(404);
     if (req.accepts('html')) {
