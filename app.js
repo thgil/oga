@@ -47,7 +47,7 @@ app.configure(function(){
   app.use(clientSessions({
     cookieName: 'session_state',    // defaults to session_state
     secret: 'supersecretkeynamehere1', // MUST be set
-    duration: 24 * 60 * 60 * 1000, // defaults to 1 day
+    duration: 7 * 24 * 60 * 60 * 1000, // defaults to 1 day
   }));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));

@@ -1,7 +1,7 @@
 var pg = require('pg')
   , check = require('validator').check;
 
-var conString = "postgres://fdwqhlmublobos:59W7Qta39KmggCqyZeZLiVza1Z@ec2-54-243-217-96.compute-1.amazonaws.com:5432/d9h6rhgaatvha8"
+var conString = "tcp://postgres:1234@localhost/ogatest"
   , query
   , client;
 
@@ -10,11 +10,18 @@ exports.list = function(req, res){
   client = new pg.Client(conString);
   client.connect();
   var orderby = "date desc";
-  var pagesize = 25;
+  var pagesize = 20;
   var offset = 0; //pagenumber
   var page = 1;
   var type;
   var finalorder;
+
+  var tos;
+  
+  if(typeof req.session.tos === 'undefined') tos =false 
+    else tos = req.session.tos;
+
+  req.session.tos = true;
 
 // Give the browser some session info
   if(typeof req.session.orderby === 'undefined') req.session.orderby = orderby;
@@ -49,6 +56,8 @@ exports.list = function(req, res){
   }
 //  if(typeof req.session.type === 'undefined') req.session.type = type;
 
+if(req.url != "/") {
+
 // Check GET data and use it if clean else use session data.
   if(typeof req.query["order"] != 'undefined') { // Order by filter
     try {
@@ -82,6 +91,8 @@ exports.list = function(req, res){
     }
   } else page = req.session.page;
 
+}
+
   offset = (page-1) * pagesize;
   finalorder = orderby;
 
@@ -93,8 +104,8 @@ exports.list = function(req, res){
       console.log("err: " + err);
       client.end();
       if (req.method) {
-        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], order:orderby, page: page, pagesize: pagesize});
-      } else res.render('index',{rows:result.rows, order:orderby, page: page, pagesize: pagesize});
+        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], order:orderby, page: page, pagesize: pagesize, tos:tos});
+      } else res.render('index',{rows:result.rows, order:orderby, page: page, pagesize: pagesize, tos:tos});
     });
   } else { 
     try {

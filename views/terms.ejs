@@ -14,11 +14,10 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap-responsive.css">
   <style>
     html {
-      min-width:490px;
+     
     }
     .navpad {
       padding-top: 50px;
-
     };
 
   </style>
@@ -33,15 +32,14 @@
           <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
       <![endif]-->
 
-<% if (typeof order === 'undefined') order ="date desc"; %>
-<% if (typeof page === 'undefined') page=1; %>
-<% if (typeof pagesize === 'undefined') pagesize=10; %>
+<% if (typeof page === 'undefined') page=1 %>
+<% if (typeof pagesize === 'undefined') pagesize=10 %>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <!-- <a class="brand" href="#">NotMega</a> -->
-            <a href="/?page=1&order=date desc" class="pull-left"><img src="img/mega.png" alt="NotMega" height="40" width="120"></a>
+            <a class="brand" href="#">NotMega</a>
+
             <form class="navbar-form navbar-search pull-left" action="/search" method="get">
               <input type="text" class="search-query" placeholder="Search links" name="name">
             </form>
@@ -52,65 +50,73 @@
     </div>
 </div>
 
-<div class="container navpad">
-  <% if (typeof tos === 'undefined'|tos == false) {%>
-  <div class="alert alert-info">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> By continuing to use this site you are agreeing to the <a>terms of service</>.
-  </div>
-  <%}%>
-  <% if (typeof error != 'undefined') {%>
-  <div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <%=error%>.
-  </div>
-<%}%>
-<% if (typeof success != 'undefined') {%>
-  <div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Link added!</strong> <%=success%>
-  </div>
-<%}%>
-  <div id="container-table">
-    <table class="table table-striped table-hover table-condensed">
-      <thead>
-        <tr>
-          
-          <th style="width: 14%">
-             <%if(order=="date asc"){%><a href="/?order=date desc">Date <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="date desc"){%><a href="/?order=date asc">Date <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=date asc">Date</a> <%}%>
-          </th>
-          <th style="width: 10%">
-            <%if(order=="catg asc"){%><a href="/?order=catg desc">Category <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="catg desc"){%><a href="/?order=catg asc">Category <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=catg asc">Category</a> <%}%>
-          </th>
-          <th>
-            <%if(order=="name asc"){%><a href="/?order=name desc">Link <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="name desc"){%><a href="/?order=name asc">Link <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=name asc">Link</a> <%}%>
-          </th>
-          <th style="width: 5%">
-            Options
-          </th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <% for(var i=0;i<rows.length;i++) {%>
-        <tr>
-          
-          <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
-          <td><%=rows[i].date.toString().slice(4,15)%></td>
-          <td><%=rows[i].catg%></td>
-          <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
-          <td><i class="icon-ban-circle"></i> <i class="icon-pencil"></i> <i class="icon-trash"></i> </td>
-          
-        </tr>
-        <%}%>
-      </tbody>
-    </table>
+	<div id="container">
+		<h1>Web Site Terms and Conditions of Use</h1>
+		<h2><i>Each section has a tl;dr for easy reading!<i></h2>
+
+		<dl>
+			<dt>1. Terms</dt>
+			<dd>
+				By accessing this web site, you are agreeing to be bound by these Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, feel free to fuck off.
+				<br />
+				<i>Tl;dr - Obey or GTFO</i>
+			</dd>
+
+			<dt>2. Usage License</dt>
+				<dd>
+					Permission is granted to post and peruse links to file content hosted on mega.co.nz. While using this site, you may not:
+					<ul>
+						<li>Knowingly provide or access any content which is illegal in the US or as stated by your local laws, including but not limited to:
+						<ul>
+							<li>Child pornography</li>
+							<li>Copyrighted works</li>
+							<li>Blatantly harmful or obscene content with no discernable intellectual merit</li>
+							<li>Furfag porn</li>
+						</ul>
+						</li>
+						<li>Use our shit for any commercial purpose, or attempt to decompile or reverse engineer our super sexy code or software</li>
+					</ul>
+				This license shall automatically terminate if you violate any of these restrictions and may be terminated by Not Mega at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format. Delete gym, hit the Facebook.
+				<br />
+				<i>Tl;dr – Don’t do illegal shit or try to break or steal our stuff</i>
+				</dd>
+				
+			<dt>3. Disclaimer</dt>
+			<dd>
+				The materials on Not Mega's web site are provided "as is." You get no warranties. Do not pass Go, do not collect $200. Crap on this website might not even be accurate, complete or even up-to-date. Not Mega is not liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Not Mega's Internet site, even if Not Mega or a Not Mega authorized representative has been notified orally or in writing of the possibility of such damage. 
+				<br />
+				<i>Tl;dr – No warranties, money or blowjobs for you</i>
+			</dd>
+
+			<dt>6. Links</dt>
+			<dd>
+				Not Mega has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Not Mega of the site. Use of any such linked web site is at the idiot user's own risk.
+				<br />
+				<i>Tl;dr - Gay porn sites might link to us, but we don’t care</i>
+			</dd>
+
+			<dt>7. Site Terms of Use Modifications</dt>
+			<dd>
+				Not Mega may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
+				<br />
+				<i>Tl;dr - This shit may change</i>
+			</dd>
+
+			<dt>8. Governing Law</dt>
+			<dd>
+				Any claim relating to Not Mega's web site shall be governed by the laws of the State of New York without regard to its conflict of law provisions.
+				<br />
+				<i>Tl;dr - New York be super cool</i>
+			</dd>
+
+			<dt>Privacy Policy</dt>
+			<dd>
+				We will collect personal information only as necessary to run our site. We won't sell your info, give it away, use it to stalk you, or give it to our weird friend Eddie for him to masturbate to.
+				<br />
+				<i>Tl;dr – Your anus is safe with us</i>
+			</dd>
+		</dl>
+
 </div>
 <!-- Pagination! -->
 <div class="pagination pagination-large pagination-centered">
@@ -123,9 +129,7 @@
   </ul>
 </div>
 
-<!-- <p class="muted" style="text-align: center"> -->
-<a href="" id="tos" class="btn btn-large btn-danger" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">Click to toggle popover</a>
-  <a href="http://www.google.com/search?q=tos">TOS</a>
+<p class="muted pull-right"> Terms of service shit here? <a href="http://www.google.com/search?q=tos">TOS</a> and <a href="http://www.google.com/search?q=DMCA">DMCA</a>.</p>
 
 </div><!-- /container -->
 
