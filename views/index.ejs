@@ -7,14 +7,14 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>NotMega</title>
+  <title>Not Mega - The #1 Source for Mega Links</title>
   <meta name="Links for Mega.co.nz" content="">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap-responsive.css">
   <style>
     html {
-      min-width:490px;
+      min-width:500px;
     }
     .navpad {
       padding-top: 50px;
@@ -40,18 +40,20 @@
         <div class="container">
             <!-- <a class="brand" href="#">NotMega</a> -->
             <a href="/?page=1&order=date desc" class="pull-left"><img src="img/mega.png" alt="NotMega"></a>
-            <form class="navbar-form navbar-search pull-left" action="/search" method="get">
-              <input type="text" class="search-query" placeholder="Search links" name="name">
-            </form>
 
             <a href="#linkadd" role="button" class="btn btn-primary btn-custom-width pull-right" style = "width: 160px;" data-toggle="modal">Add a link!</a>
-              
+             <form class="navbar-form navbar-search pull-right" action="/search" method="get">
+              <input type="text" class="search-query" placeholder="Search links" name="name">
+            </form>
+            <div class="nav-collapse collapse">
+            <ul class="nav"><li><a href="/?page=1&order=date desc" class="pull-left">Home</a></li></ul>
+          </div>
         </div>
     </div>
 </div>
 
 <div class="container navpad">
-  <% if (typeof tos === 'undefined'|tos == false) {%>
+  <% if (typeof tos === 'undefined') {%>
   <div class="alert alert-info">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Notice!</strong> By using this site, you agree to abide by our <a href="#tos" data-toggle="modal">Terms Of Service</a>.
@@ -96,6 +98,7 @@
         </tr>
       </thead>
       <tbody>
+        <%if(typeof rows != 'undefined'){%>
         <% for(var i=0;i<rows.length;i++) {%>
         <tr>
           <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
@@ -110,25 +113,66 @@
           
         </tr>
         <%}%>
+        <%}%>
       </tbody>
     </table>
 </div>
 <!-- Pagination! -->
+<%if(typeof name!='undefined'){%>
 <div class="pagination pagination-large pagination-centered">
   <ul>
     <%if(page<=1){%><li class="deactive"><span>Prev</span></li>
-    <%} else {%> <li><a href="/?page=<%=page-1%>">Prev</a></li> <%}%>
-    <li><a href="/?page=<%=page%>"><%=page%></a></li>
+    <%} else {%> <li><a href="/search?name=<%=name%>&page=<%=page-1%>">Prev</a></li><%}%>
+    <li><a href="/search?name=<%=name%>&page=<%=page%>"><%=page%></a></li>
     <% if(rows.length<pagesize){%> <li class="deactive"><span>Next</span></li> 
-    <%} else {%> <li><a href="/?page=<%=++page%>">Next</a></li> <%}%>
+    <%} else {%><li><a href="/search?name=<%=name%>&page=<%=++page%>">Next</a></li><%}%>
   </ul>
 </div>
+
+<%}else{%>
+<div class="pagination pagination-large pagination-centered">
+  <ul>
+    <%if(page<=1){%><li class="deactive"><span>Prev</span></li>
+    <%} else {%> <li><a href="/?page=<%=page-1%>">Prev</a></li><%}%>
+    <li><a href="/?page=<%=page%>"><%=page%></a></li>
+    <% if(rows.length<pagesize){%> <li class="deactive"><span>Next</span></li> 
+    <%} else {%><li><a href="/?page=<%=++page%>">Next</a></li> <%}%>
+  </ul>
+</div>
+<%}%>
 
 <p class="muted" style="text-align: center">
   <a href="#tos" data-toggle="modal">Terms Of Service</a>
 </p>
 </div><!-- /container -->
 
+<div style="float: left">
+        <script type="text/javascript"><!--
+        google_ad_client = "ca-pub-5968207583661015";
+        /* Not Mega Left */
+        google_ad_slot = "1171816190";
+        google_ad_width = 120;
+        google_ad_height = 600;
+        //-->
+        </script>
+        <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+</div>
+ 
+ 
+<div style="float: right">
+        <script type="text/javascript"><!--
+        google_ad_client = "ca-pub-5968207583661015";
+        /* Not Mega Right */
+        google_ad_slot = "2648549396";
+        google_ad_width = 120;
+        google_ad_height = 600;
+        //-->
+        </script>
+        <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+</div>
 
 <!-- Modal -->
   <div id="linkadd" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="linkadd" aria-hidden="true">
@@ -136,13 +180,13 @@
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">Add a Link</h3>
     </div>
-    <form  name="linkadd" method="post" action="/add" class="form-horizontal" data-validate="parsley">
+    <form  name="linkadd" method="post" action="/add" class="form-horizontal" data-validate="parsley" >
     <div class="modal-body">
         <fieldset>
           <div class="control-group">
             <label class="control-label" for="name">Title</label>
             <div class="controls">
-              <input type="text" class="input-large" id="name" name="name" placeholder="Title" data-minlength="2" data-required="true" data-trigger="change" required>
+              <input type="text" class="input-large" id="name" name="name" placeholder="Title" data-minlength="2" data-trigger="change" required>
             </div>
           </div>
           <!-- <div class="control-group">
@@ -154,7 +198,7 @@
           <div class="control-group">
             <label class="control-label" for="link">Link</label>
             <div class="controls">
-              <input type="text" class="input-large" id="link" name="link" placeholder="Enter link here" data-type="urlstrict" required>
+              <input type="text" class="input-large" id="link" name="link" placeholder="Enter Mega Link here" data-regexp="(https://|http://)(www.|)mega.co.nz/#!.{52}$" data-trigger="change" required>
             </div>
           </div>
           <div class="control-group">
@@ -258,7 +302,6 @@
     </form>
   </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.9.0.min.js"><\/script>')</script>
     <script src="/js/jquery-ui.min.js"></script> 
     <script src="/js/bootstrap.min.js"></script>
@@ -273,6 +316,12 @@
       $(document).ready(function () {
         $("a").tooltip();
       });
+
+      $( '#form' ).parsley( {
+        messages: {
+          data-regexp: "This value should be a multiple of"
+        }
+      } );
     </script>
   </body>
 </html>

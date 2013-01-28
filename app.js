@@ -71,6 +71,7 @@ app.configure('development', function(){
  */
 app.get('/', link.list);
 app.get('/search', link.search);
+app.post('/add', link.add);
 app.get('/remove', link.remove);
 app.get('/report', function(req,res){res.redirect('/?success=Reported!')})
 //app.get('/:error', link.list);
@@ -84,16 +85,15 @@ app.get('/report', function(req,res){res.redirect('/?success=Reported!')})
 /*
  * Routes POST
  */
-app.post('/add', link.add);
 //app.post('/file', file.post);
 //app.post('/login', user.login);
 //app.post('/register', user.register);
 
 http.createServer(app).listen(app.get('port'), function(req,res){
-  if (toobusy()) {
-    console.log("poop");
-    res.writeHead(503);
-    return res.end();
-  }
+  // if (toobusy()) {
+  //   console.log("poop");
+  //   res.writeHead(503);
+  //   return res.end();
+  // }
   console.log("Express server listening on port " + app.get('port'));
 });
