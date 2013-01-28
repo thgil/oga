@@ -1,7 +1,7 @@
 var pg = require('pg')
   , check = require('validator').check;
 
-var conString = "postgres://fdwqhlmublobos:59W7Qta39KmggCqyZeZLiVza1Z@ec2-54-243-217-96.compute-1.amazonaws.com:5432/d9h6rhgaatvha8"
+var conString = "tcp://postgres:1234@localhost/ogatest"
   , query
   , client;
 
@@ -17,7 +17,7 @@ exports.list = function(req, res){
   var finalorder;
 
   var tos;
-  
+
   if(typeof req.session.tos === 'undefined') tos =false 
     else tos = req.session.tos;
 
@@ -152,7 +152,7 @@ exports.add = function(req, res){
 
   query.on('end', function() {
     client.end();
-    res.redirect('/?success='+name);
+    res.redirect('/?success=Link '+name+' added!');
   });
 };
 
@@ -160,21 +160,50 @@ exports.remove = function(req, res){
   client = new pg.Client(conString);
   client.connect();
 
-  id = req.params.id;
+  id = req.query["id"];
+  ip = req.ip;
 
-  query = client.query("select ip from links where fid=$1",[id]);
-  query.on('row', function() {
-    if(row.ip == req.connection.remoteAddress){
-      var query2 = client.query("drop from links where fid=$1",[id]);
-      query2.on('end', function() {
-        client.end();
-      });
+console.log("Id: "+id);
+
+  if(typeof req.query["id"]!='undefined') { // Page number
+    try {
+      check(req.query["id"],"What kindof id is this?!").isInt().min(0).max(100000);
+      id = req.query["id"];
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
     }
-    else client.end();
+  } else res.redirect('/?error=remove error');
 
-    res.render('index');
+  query = client.query("select ip from links where fid=$1",[id], function(err, result) { 
+    console.log("err for q1: "+err);
+    console.log("row.ip: "+result.rows[0].ip+" == "+ip);
+    if(result.rows[0].ip == ip){
+      console.log("they equal");
+      var query2 = client.query("delete from links where fid=$1",[id]);
+      query2.on('end', function(){
+        res.redirect('/?success=Link '+result.rows[0].name+' removed!');
+      client.end();});
+    } else {
+      client.end();
+      res.redirect('/?error=You do not own this link!');
+    }
   });
 
+    // query.on('row', function() {
+    //   console.log("row.ip: "+row.ip);
+    //   if(row.ip == ip){
+    //     var query2 = client.query("drop from links where fid=$1",[id]);
+    //     query2.on('end', function() {
+    //       client.end();
+    //       res.redirect('/?success=Link '+row.name+' removed!');
+    //     });
+    //   }
+    //   else {
+    //     client.end();
+    //     res.redirect('/?error=You do not own this link!');
+    //   }
+    // });
 };
 
 exports.edit = function(req, res){

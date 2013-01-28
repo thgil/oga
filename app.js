@@ -71,9 +71,10 @@ app.configure('development', function(){
  */
 app.get('/', link.list);
 app.get('/search', link.search);
-app.get('/:error', link.list);
-app.get('/:success', link.list);
-//app.get('/remove/:id', link.remove);
+app.get('/remove', link.remove);
+app.get('/report', function(req,res){res.redirect('/?success=Reported!')})
+//app.get('/:error', link.list);
+//app.get('/:success', link.list);
 //app.get('/login', user.login);
 //app.get('/register', user.register);
 //app.get('/users', user.list);
