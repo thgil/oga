@@ -1,7 +1,7 @@
 var pg = require('pg')
   , check = require('validator').check;
 
-var conString = "tcp://postgres:1234@localhost/ogatest"
+var conString = "postgres://fdwqhlmublobos:59W7Qta39KmggCqyZeZLiVza1Z@ec2-54-243-217-96.compute-1.amazonaws.com:5432/d9h6rhgaatvha8"
   , query
   , client;
 
