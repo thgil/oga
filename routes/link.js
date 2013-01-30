@@ -8,8 +8,6 @@ var conString = "tcp://postgres:1234@localhost/ogatest"
 
 exports.list = function(req, res){
 
-  client = new pg.Client(conString);
-  client.connect();
   var orderby = "date desc";
   var pagesize = 20;
   var offset = 0; //pagenumber
@@ -100,13 +98,16 @@ if(req.url != "/") {
   if(orderby == "name asc") finalorder = "lower(name) asc";
   else if(orderby == "name desc") finalorder = "lower(name) desc";
 
+  client = new pg.Client(conString);
+  client.connect();
+
   //if(typeof req.query["type"]==='undefined') {
     query = client.query("select * from links order by "+finalorder+" limit $1 offset $2",[pagesize,offset],function(err, result) { 
       console.log("err: " + err);
-      client.end();
       if (req.method) {
         res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], order:orderby, page: page, pagesize: pagesize, tos:tos});
       } else res.render('index',{rows:result.rows, order:orderby, page: page, pagesize: pagesize, tos:tos});
+      client.end();
     });
   // } else { 
   //   try {
@@ -139,7 +140,7 @@ exports.add = function(req, res){
   try {
     check(link,"Not a valid mega link!").regex('(https://|http://)(www.|)mega.co.nz/#!.{52}$'); //"That link isn't valid!"
     check(name,"Name needs to be =>2 and <=100").len(2,100);//"That name length won't work"
-    check(catg,"Somehow you picked a category thats not there").regex('(Video|Audio|Images|Games|Ebooks|Documents|Other)');//"That isn't a catergory?!"
+    check(catg,"Somehow you picked a category thats not there").regex('(Video|Audio|Application|Images|Games|Ebooks|Documents|Porn|Other)');//"That isn't a catergory?!"
     check(descr,"hehehe you 'borked' it").len(0,200);//"Too much description!"
   } catch (e) {
     res.redirect('/?error='+e.message);
@@ -158,8 +159,6 @@ exports.add = function(req, res){
 };
 
 exports.remove = function(req, res){
-  client = new pg.Client(conString);
-  client.connect();
 
   id = req.query["id"];
   ip = req.ip;
@@ -173,6 +172,9 @@ exports.remove = function(req, res){
       return;
     }
   } else res.redirect('/?error=remove error');
+
+  client = new pg.Client(conString);
+  client.connect();
 
   query = client.query("select ip from links where fid=$1",[id], function(err, result) { 
     console.log("err for q1: "+err);
@@ -193,9 +195,6 @@ exports.edit = function(req, res){
 };
 
 exports.search = function(req, res){
-
-  client = new pg.Client(conString);
-  client.connect();
 
   var orderby = "date desc";
   var pagesize = 20;
@@ -273,7 +272,11 @@ req.session.tos = true;
   } else page = req.session.page;
 
 
-  name = req.query["name"].replace(/[^A-Za-z0-9 ]/g,'');
+  name = req.query["name"]
+  //name = name.replace("[:\+!\[\]",' ');
+  name = name.replace(/[^A-Za-z0-9 ]/g,'');
+
+  console.log(name);
 
   if(name == ""|| name == null || typeof name === 'undefined'){ 
     req.session.page = 1;
@@ -292,12 +295,43 @@ req.session.tos = true;
   if(orderby == "name asc") finalorder = "lower(name) asc";
   else if(orderby == "name desc") finalorder = "lower(name) desc";
 
-  query = client.query("select * from links where to_tsvector(name) @@ to_tsquery($1) order by "+finalorder+" limit $2 offset $3",[name,pagesize,offset], function(err,result){
+  client = new pg.Client(conString);
+  client.connect();
+
+  // query = client.query("select * from links where to_tsvector(name) @@ to_tsquery($1) order by "+finalorder+" limit $2 offset $3",[name,pagesize,offset], function(err,result){
+  //   res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize, tos:tos, name:name})
+  // });
+
+  query = client.query("select *, similarity(name, $1) AS sml from links where name % $1 order by sml DESC, "+finalorder+" limit $2 offset $3",[name,pagesize,offset], function(err,result){
+    
     res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize, tos:tos, name:name})
+    client.end();
   });
+
 };
 
 exports.autosearch = function(req, res){
+  var name;
+  if(typeof req.query["term"]!='undefined') { // name
+
+      name = req.query["term"];
+      name = name.replace(/[^A-Za-z0-9 ]/g,'');
+
+  } else name = "";
+  
+
   client = new pg.Client(conString);
   client.connect();
+
+  query = client.query("select name from links where name % $1 limit 8",[name], function(err,result){
+    res.header(' Content-Type', 'application/json');
+    var data = [];
+    for(var i in result.rows) {
+      data.push(result.rows[i].name);
+    }
+    res.write(JSON.stringify(data));
+    res.end();
+    client.end();
+  });
+
 };
