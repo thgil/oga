@@ -12,7 +12,7 @@ exports.list = function(req, res){
   var pagesize = 100;
   var offset = 0; //pagenumber
   var page = 1;
-  var type;
+  var type = "All";
   var finalorder;
   var search;
   var tos;
@@ -57,7 +57,7 @@ exports.list = function(req, res){
   if(typeof req.session.type === 'undefined') req.session.type = type;
   else {
     try {
-      check(req.session.type,"What kindof type session is this?!").regex('(Video|Audio|Application|Images|Games|Ebooks|Documents|Porn|Other)');
+      check(req.session.type,"What kindof type session is this?!").regex('(All|Video|Audio|Applications|Images|Games|Ebooks|Documents|Porn|Other)');
     } catch (e) {
       res.redirect('/?error='+e.message);
       delete req.session.type;
@@ -102,7 +102,7 @@ if(req.url != "/") {
 
   if(typeof req.query["type"]!='undefined') { // Page number
     try {
-      check(req.query["type"],"What kindof type is this?!").regex('(Video|Audio|Application|Images|Games|Ebooks|Documents|Porn|Other)');
+      check(req.query["type"],"What kindof type is this?!").regex('(All|Video|Audio|Applications|Images|Games|Ebooks|Documents|Porn|Other)');
       type = req.query["type"];
       req.session.type = type;
     } catch (e) {
@@ -110,6 +110,10 @@ if(req.url != "/") {
       return;
     }
   } else type = req.session.type;
+} else {
+  orderby = "date desc";
+  page = 1;
+  type = "All";
 }
 
   offset = (page-1) * pagesize;
@@ -121,7 +125,7 @@ if(req.url != "/") {
   client = new pg.Client(conString);
   client.connect();
 
-  if(typeof req.query["type"]==='undefined') {
+  if(typeof req.session.type==='undefined'||type=="All") {
     query = client.query("select * from links order by "+finalorder+" limit $1 offset $2",[pagesize,offset],function(err, result) { 
       console.log("err: " + err);
       if (req.method) {
@@ -130,18 +134,11 @@ if(req.url != "/") {
       client.end();
     });
   } else { 
-    try {
-      check(req.query["type"],"What kindof type is this?!").regex('(Video|Audio|Images|Games|Ebooks|Documents|Other)');
-      type = req.query["type"];
-    } catch (e) {
-      res.redirect('/?error='+e.message);
-      return;
-    }
     query = client.query("select * from links where catg=$3 order by "+orderby+" limit $1 offset $2",[pagesize,offset,type],function(err, result) { 
       console.log("err: " + err);
       if (req.method) {
-        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize, tos:tos});
-      } else res.render('index',{rows:result.rows, page: page, pagesize: pagesize, tos:tos});
+        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], order:orderby, page: page, pagesize: pagesize, tos:tos});
+      } else res.render('index',{rows:result.rows, order:orderby, page: page, pagesize: pagesize, tos:tos});
       client.end();
     });
   }
@@ -160,7 +157,7 @@ exports.add = function(req, res){
   try {
     check(link,"Not a valid mega link!").regex('(https://|http://)(www.|)mega.co.nz/#!.{52}$'); //"That link isn't valid!"
     check(name,"Name needs to be =>2 and <=100").len(2,100);//"That name length won't work"
-    check(catg,"Somehow you picked a category thats not there").regex('(Video|Audio|Application|Images|Games|Ebooks|Documents|Porn|Other)');//"That isn't a catergory?!"
+    check(catg,"Somehow you picked a category thats not there").regex('(Video|Audio|Applications|Images|Games|Ebooks|Documents|Porn|Other)');//"That isn't a catergory?!"
     check(descr,"hehehe you 'borked' it").len(0,200);//"Too much description!"
   } catch (e) {
     res.redirect('/?error='+e.message);

@@ -39,7 +39,7 @@
     <div class="navbar-inner">
         <div class="container">
             <!-- <a class="brand" href="#">NotMega</a> -->
-            <a href="/?page=1&order=date desc" class="pull-left"><img src="img/mega.png" alt="Not Mega"></a>
+            <a href="/" class="pull-left"><img src="img/mega.png" alt="Not Mega"></a>
 
             <a href="#linkadd" role="button" class="btn btn-primary pull-right" style = "width: 160px;" data-toggle="modal">Add a link!</a>
             <!-- <form class="navbar-form navbar-search pull-right" action="/search" method="get">
@@ -50,7 +50,7 @@
               <input type="search" id="searchbox" class="autocomplete"  name="name" placeholder="Search for a link..." data-url="/autosearch" autocomplete="off" spellcheck="false">
             </form>
             <div class="nav-collapse collapse">
-            <ul class="nav"><li><a href="/?page=1&order=date desc" class="pull-left">Home</a></li></ul>
+            <ul class="nav"><li><a href="/" class="pull-left">Home</a></li></ul>
           </div>
         </div>
     </div>
@@ -85,9 +85,24 @@
             <% } else {%><a href="/?order=date asc&page=1">Date</a> <%}%>
           </th>
           <th style="width: 10%">
-            <%if(order=="catg asc"){%><a href="/?order=catg desc&page=1">Category <i class="icon-chevron-up"></i></a>
+             <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li ><a tabindex="-1" href="/?type=All&page=1">All</a></li>
+                <li ><a tabindex="-1" href="/?type=Video&page=1">Video</li>
+                <li ><a tabindex="-1" href="/?type=Audio&page=1">Audio</li>
+                <li ><a tabindex="-1" href="/?type=Applications&page=1">Applications</li>
+                <li ><a tabindex="-1" href="/?type=Images&page=1">Images</li>
+                <li ><a tabindex="-1" href="/?type=Games&page=1">Games</li>
+                <li ><a tabindex="-1" href="/?type=Ebooks&page=1">Ebooks</li>
+                <li ><a tabindex="-1" href="/?type=Documents&page=1">Documents</li>
+                <li ><a tabindex="-1" href="/?type=Documents&page=1">Porn</li>
+                <li ><a tabindex="-1" href="/?type=Other&page=1">Other</li>
+              </ul>
+            </div>
+           <!--  <%if(order=="catg asc"){%><a href="/?order=catg desc&page=1">Category <i class="icon-chevron-up"></i></a>
             <%}else if(order=="catg desc"){%><a href="/?order=catg asc&page=1">Category <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=catg asc&page=1">Category</a> <%}%>
+            <% } else {%><a href="/?order=catg asc&page=1">Category</a> <%}%> -->
           </th>
           <th>
             <%if(order=="name asc"){%><a href="/?order=name desc&page=1">Link <i class="icon-chevron-up"></i></a>
@@ -184,7 +199,7 @@
               <select name="catg">
                 <option value="Video">Video</option>
                 <option value="Audio">Audio</option>
-                <option value="Application">Application</option>
+                <option value="Applications">Applications</option>
                 <option value="Images">Images</option>
                 <option value="Games">Games</option>
                 <option value="Ebooks">Ebooks</option>
