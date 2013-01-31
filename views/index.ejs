@@ -33,7 +33,7 @@
 
 <% if (typeof order === 'undefined') order ="date desc"; %>
 <% if (typeof page === 'undefined') page=1; %>
-<% if (typeof pagesize === 'undefined') pagesize=10; %>
+<% if (typeof pagesize === 'undefined') pagesize=100; %>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -105,7 +105,7 @@
         <tr>
           <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
           <td><%=rows[i].date.toString().slice(4,15)%></td>
-          <td><%=rows[i].catg%></td>
+          <td><a href="/?type=<%=rows[i].catg%>"><%=rows[i].catg%></a></td>
           <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
           <td>
             <a href="/report/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="left" data-original-title="Report"> <i class="icon-ban-circle"> </i> </a>

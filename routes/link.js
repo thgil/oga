@@ -9,7 +9,7 @@ var conString = "tcp://postgres:1234@localhost/ogatest"
 exports.list = function(req, res){
 
   var orderby = "date desc";
-  var pagesize = 20;
+  var pagesize = 100;
   var offset = 0; //pagenumber
   var page = 1;
   var type;
@@ -54,6 +54,16 @@ exports.list = function(req, res){
       return;
     }
   }
+  if(typeof req.session.type === 'undefined') req.session.type = type;
+  else {
+    try {
+      check(req.session.type,"What kindof type session is this?!").regex('(Video|Audio|Application|Images|Games|Ebooks|Documents|Porn|Other)');
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      delete req.session.type;
+      return;
+    }
+  }
 //  if(typeof req.session.type === 'undefined') req.session.type = type;
 
 if(req.url != "/") {
@@ -90,6 +100,16 @@ if(req.url != "/") {
     }
   } else page = req.session.page;
 
+  if(typeof req.query["type"]!='undefined') { // Page number
+    try {
+      check(req.query["type"],"What kindof type is this?!").regex('(Video|Audio|Application|Images|Games|Ebooks|Documents|Porn|Other)');
+      type = req.query["type"];
+      req.session.type = type;
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+    }
+  } else type = req.session.type;
 }
 
   offset = (page-1) * pagesize;
@@ -101,7 +121,7 @@ if(req.url != "/") {
   client = new pg.Client(conString);
   client.connect();
 
-  //if(typeof req.query["type"]==='undefined') {
+  if(typeof req.query["type"]==='undefined') {
     query = client.query("select * from links order by "+finalorder+" limit $1 offset $2",[pagesize,offset],function(err, result) { 
       console.log("err: " + err);
       if (req.method) {
@@ -109,22 +129,22 @@ if(req.url != "/") {
       } else res.render('index',{rows:result.rows, order:orderby, page: page, pagesize: pagesize, tos:tos});
       client.end();
     });
-  // } else { 
-  //   try {
-  //     check(req.query["type"],"What kindof type is this?!").regex('(Video|Audio|Images|Games|Ebooks|Documents|Other)');
-  //     type = req.query["type"];
-  //   } catch (e) {
-  //     res.redirect('/?error='+e.message);
-  //     return;
-  //   }
-  //   query = client.query("select * from links where catg="+type+" order by "+orderby+" limit $1 offset $2",[pagesize,offset],function(err, result) { 
-  //     //console.log("err: " + err);
-  //     client.end();
-  //     if (req.method) {
-  //       res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize});
-  //     } else res.render('index',{rows:result.rows, page: page, pagesize: pagesize});
-  //   });
-  // }
+  } else { 
+    try {
+      check(req.query["type"],"What kindof type is this?!").regex('(Video|Audio|Images|Games|Ebooks|Documents|Other)');
+      type = req.query["type"];
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+    }
+    query = client.query("select * from links where catg=$3 order by "+orderby+" limit $1 offset $2",[pagesize,offset,type],function(err, result) { 
+      console.log("err: " + err);
+      if (req.method) {
+        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize});
+      } else res.render('index',{rows:result.rows, page: page, pagesize: pagesize});
+      client.end();
+    });
+  }
 };
 
 exports.add = function(req, res){
@@ -197,7 +217,7 @@ exports.edit = function(req, res){
 exports.search = function(req, res){
 
   var orderby = "date desc";
-  var pagesize = 20;
+  var pagesize = 100;
   var offset = 0; //pagenumber
   var page = 1;
   var type;
@@ -326,6 +346,7 @@ exports.autosearch = function(req, res){
   query = client.query("select name from links where name % $1 limit 8",[name], function(err,result){
     res.header(' Content-Type', 'application/json');
     var data = [];
+
     for(var i in result.rows) {
       data.push(result.rows[i].name);
     }
