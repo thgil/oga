@@ -140,8 +140,8 @@ if(req.url != "/") {
     query = client.query("select * from links where catg=$3 order by "+orderby+" limit $1 offset $2",[pagesize,offset,type],function(err, result) { 
       console.log("err: " + err);
       if (req.method) {
-        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize});
-      } else res.render('index',{rows:result.rows, page: page, pagesize: pagesize});
+        res.render('index',{rows:result.rows, error: req.query["error"] , success: req.query["success"], page: page, pagesize: pagesize, tos:tos});
+      } else res.render('index',{rows:result.rows, page: page, pagesize: pagesize, tos:tos});
       client.end();
     });
   }

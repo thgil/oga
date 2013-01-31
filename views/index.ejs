@@ -80,19 +80,19 @@
       <thead>
         <tr>
           <th style="width: 14%">
-             <%if(order=="date asc"){%><a href="/?order=date desc">Date <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="date desc"){%><a href="/?order=date asc">Date <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=date asc">Date</a> <%}%>
+             <%if(order=="date asc"){%><a href="/?order=date desc&page=1">Date <i class="icon-chevron-up"></i></a>
+            <%}else if(order=="date desc"){%><a href="/?order=date asc&page=1">Date <i class="icon-chevron-down"></i></a>
+            <% } else {%><a href="/?order=date asc&page=1">Date</a> <%}%>
           </th>
           <th style="width: 10%">
-            <%if(order=="catg asc"){%><a href="/?order=catg desc">Category <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="catg desc"){%><a href="/?order=catg asc">Category <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=catg asc">Category</a> <%}%>
+            <%if(order=="catg asc"){%><a href="/?order=catg desc&page=1">Category <i class="icon-chevron-up"></i></a>
+            <%}else if(order=="catg desc"){%><a href="/?order=catg asc&page=1">Category <i class="icon-chevron-down"></i></a>
+            <% } else {%><a href="/?order=catg asc&page=1">Category</a> <%}%>
           </th>
           <th>
-            <%if(order=="name asc"){%><a href="/?order=name desc">Link <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="name desc"){%><a href="/?order=name asc">Link <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=name asc">Link</a> <%}%>
+            <%if(order=="name asc"){%><a href="/?order=name desc&page=1">Link <i class="icon-chevron-up"></i></a>
+            <%}else if(order=="name desc"){%><a href="/?order=name asc&page=1">Link <i class="icon-chevron-down"></i></a>
+            <% } else {%><a href="/?order=name asc&page=1">Link</a> <%}%>
           </th>
           <th style="width: 5%">
             Options
@@ -105,7 +105,7 @@
         <tr>
           <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
           <td><%=rows[i].date.toString().slice(4,15)%></td>
-          <td><a href="/?type=<%=rows[i].catg%>"><%=rows[i].catg%></a></td>
+          <td><a href="/?type=<%=rows[i].catg%>&page=1"><%=rows[i].catg%></a></td>
           <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
           <td>
             <a href="/report/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="left" data-original-title="Report"> <i class="icon-ban-circle"> </i> </a>
