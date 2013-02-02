@@ -1,6 +1,6 @@
 var pg = require('pg')
   , check = require('validator').check
-  , sanitize = require('validator').sanitize
+  , sanitize = require('validator').sanitize;
 
 var conString = "tcp://postgres:1234@localhost/ogatest"
   , query
@@ -193,17 +193,17 @@ exports.remove = function(req, res){
   client = new pg.Client(conString);
   client.connect();
 
-  query = client.query("select ip from links where fid=$1",[id], function(err, result) { 
-    console.log("err for q1: "+err);
-    if(result.rows[0].ip == ip){
-      var query2 = client.query("delete from links where fid=$1",[id]);
-      query2.on('end', function(){
-        res.redirect('/?success=Link '+result.rows[0].name+' removed!');
-      client.end();});
-    } else {
-      client.end();
+  query = client.query("delete from links where fid=$1 and ip=$2",[id,ip], function(err, result) { 
+
+    if (result.rowCount==0) {
       res.redirect('/?error=You do not own this link!');
+      client.end();
+      return;
     }
+
+  res.redirect('/?success=Link removed!');
+  client.end();
+
   });
 };
 
