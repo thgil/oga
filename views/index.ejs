@@ -18,8 +18,7 @@
     }
     .navpad {
       padding-top: 50px;
-
-    };
+    }
   </style>
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="/css/parsley.css">
@@ -33,7 +32,7 @@
 
 <% if (typeof order === 'undefined') order ="date desc"; %>
 <% if (typeof page === 'undefined') page=1; %>
-<% if (typeof pagesize === 'undefined') pagesize=100; %>
+<% if (typeof pagesize === 'undefined') pagesize=50; %>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -76,64 +75,107 @@
   </div>
 <%}%>
   <div id="container-repo">
-    <table class="table table-striped table-hover table-condensed">
-      <thead>
-        <tr>
-          <th style="width: 14%">
-             <%if(order=="date asc"){%><a href="/?order=date desc&page=1">Date <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="date desc"){%><a href="/?order=date asc&page=1">Date <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=date asc&page=1">Date</a> <%}%>
-          </th>
-          <th style="width: 10%">
-             <div class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<b class="caret"></b></a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li ><a tabindex="-1" href="/?type=All&page=1">All</a></li>
-                <li ><a tabindex="-1" href="/?type=Video&page=1">Video</li>
-                <li ><a tabindex="-1" href="/?type=Audio&page=1">Audio</li>
-                <li ><a tabindex="-1" href="/?type=Applications&page=1">Applications</li>
-                <li ><a tabindex="-1" href="/?type=Images&page=1">Images</li>
-                <li ><a tabindex="-1" href="/?type=Games&page=1">Games</li>
-                <li ><a tabindex="-1" href="/?type=Ebooks&page=1">Ebooks</li>
-                <li ><a tabindex="-1" href="/?type=Documents&page=1">Documents</li>
-                <li ><a tabindex="-1" href="/?type=Documents&page=1">Porn</li>
-                <li ><a tabindex="-1" href="/?type=Other&page=1">Other</li>
-              </ul>
-            </div>
-           <!--  <%if(order=="catg asc"){%><a href="/?order=catg desc&page=1">Category <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="catg desc"){%><a href="/?order=catg asc&page=1">Category <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=catg asc&page=1">Category</a> <%}%> -->
-          </th>
-          <th>
-            <%if(order=="name asc"){%><a href="/?order=name desc&page=1">Link <i class="icon-chevron-up"></i></a>
-            <%}else if(order=="name desc"){%><a href="/?order=name asc&page=1">Link <i class="icon-chevron-down"></i></a>
-            <% } else {%><a href="/?order=name asc&page=1">Link</a> <%}%>
-          </th>
-          <th style="width: 5%">
-            Options
-          </th>      
-        </tr>
-      </thead>
-      <tbody>
-        <%if(typeof rows != 'undefined'){%>
-        <% for(var i=0;i<rows.length;i++) {%>
-        <tr>
-          <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
-          <td><%=rows[i].date.toString().slice(4,15)%></td>
-          <td><a href="/?type=<%=rows[i].catg%>&page=1"><%=rows[i].catg%></a></td>
-          <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
-          <td>
-            <a href="/report/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="left" data-original-title="Report"> <i class="icon-ban-circle"> </i> </a>
-            <!-- <i class="icon-pencil"></i> -->
-            <a href="/remove/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="right" data-original-title="Remove"> <i class="icon-trash"> </i> </a>
-          </td>
-          
-        </tr>
-        <%}%>
-        <%}%>
-      </tbody>
-    </table>
-
+    <div class="row-fluid">
+      <div class="span11">
+        <table class="table table-striped table-hover table-condensed">
+          <thead>
+            <tr>
+              <th style="width: 14%">
+                 <%if(order=="date asc"){%><a href="/?order=date desc&page=1">Date <i class="icon-chevron-up"></i></a>
+                <%}else if(order=="date desc"){%><a href="/?order=date asc&page=1">Date <i class="icon-chevron-down"></i></a>
+                <% } else {%><a href="/?order=date asc&page=1">Date</a> <%}%>
+              </th>
+              <th style="width: 10%">
+                 <div class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<b class="caret"></b></a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li ><a tabindex="-1" href="/?type=All&page=1">All</a></li>
+                    <li ><a tabindex="-1" href="/?type=Video&page=1">Video</li>
+                    <li ><a tabindex="-1" href="/?type=Audio&page=1">Audio</li>
+                    <li ><a tabindex="-1" href="/?type=Applications&page=1">Applications</li>
+                    <li ><a tabindex="-1" href="/?type=Images&page=1">Images</li>
+                    <li ><a tabindex="-1" href="/?type=Games&page=1">Games</li>
+                    <li ><a tabindex="-1" href="/?type=Ebooks&page=1">Ebooks</li>
+                    <li ><a tabindex="-1" href="/?type=Documents&page=1">Documents</li>
+                    <li ><a tabindex="-1" href="/?type=Documents&page=1">Porn</li>
+                    <li ><a tabindex="-1" href="/?type=Other&page=1">Other</li>
+                  </ul>
+                </div>
+               <!--  <%if(order=="catg asc"){%><a href="/?order=catg desc&page=1">Category <i class="icon-chevron-up"></i></a>
+                <%}else if(order=="catg desc"){%><a href="/?order=catg asc&page=1">Category <i class="icon-chevron-down"></i></a>
+                <% } else {%><a href="/?order=catg asc&page=1">Category</a> <%}%> -->
+              </th>
+              <th>
+                <%if(order=="name asc"){%><a href="/?order=name desc&page=1">Link <i class="icon-chevron-up"></i></a>
+                <%}else if(order=="name desc"){%><a href="/?order=name asc&page=1">Link <i class="icon-chevron-down"></i></a>
+                <% } else {%><a href="/?order=name asc&page=1">Link</a> <%}%>
+              </th>
+              <th style="width: 5%">
+                Options
+              </th>      
+            </tr>
+          </thead>
+          <tbody>
+            <%if(typeof rows != 'undefined'){%>
+            <% for(var i=0;i<rows.length;i++) {%>
+            <tr>
+              <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
+              <td><%=rows[i].date.toString().slice(4,15)%></td>
+              <td><a href="/?type=<%=rows[i].catg%>&page=1"><%=rows[i].catg%></a></td>
+              <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
+              <td>
+                <a href="/report/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="left" data-original-title="Report"> <i class="icon-ban-circle"> </i> </a>
+                <!-- <i class="icon-pencil"></i> -->
+                <a href="/remove/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="right" data-original-title="Remove"> <i class="icon-trash"> </i> </a>
+              </td>
+              
+            </tr>
+            <%}%>
+            <%}%>
+          </tbody>
+        </table>
+      </div>
+      <div class="span1" style="margin-top:27px; margin-left:15px;" >
+        <script type="text/javascript"><!--
+        google_ad_client = "ca-pub-5968207583661015";
+          /* Not Mega Right Top */
+          google_ad_slot = "2648549396";
+          google_ad_width = 120;
+          google_ad_height = 600;
+          //-->
+        </script>
+        <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+        <script type="text/javascript"><!--
+          google_ad_client = "ca-pub-5968207583661015";
+          /* Not Mega Right Bottom */
+          google_ad_slot = "1171816190";
+          google_ad_width = 120;
+          google_ad_height = 600;
+          //-->
+        </script>
+        <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+      </div >
+      <div class="row-fluid">
+      <div style="margin-left:50%;">
+        <div style="margin-left:-364px; min-width:728px;">
+          <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-5968207583661015";
+            /* Not Mega Bottom */
+            google_ad_slot = "8429227795";
+            google_ad_width = 728;
+            google_ad_height = 90;
+            //
+          </script>
+          <script type="text/javascript"
+            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+          </script>
+        </div>
+      </div>
+    </div>
 </div>
 <!-- Pagination! -->
 <%if(typeof name!='undefined'){%>

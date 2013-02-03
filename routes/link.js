@@ -9,7 +9,7 @@ var conString = "tcp://postgres:1234@localhost/ogatest"
 exports.list = function(req, res){
 
   var orderby = "date desc";
-  var pagesize = 100;
+  var pagesize = 50;
   var offset = 0; //pagenumber
   var page = 1;
   var type = "All";
@@ -214,7 +214,7 @@ exports.edit = function(req, res){
 exports.search = function(req, res){
 
   var orderby = "date desc";
-  var pagesize = 100;
+  var pagesize = 50;
   var offset = 0; //pagenumber
   var page = 1;
   var type;
