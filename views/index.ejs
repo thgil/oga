@@ -96,7 +96,7 @@
         <table class="table table-striped table-hover table-condensed">
           <thead>
             <tr>
-              <th style="width: 14%">
+              <th style="width: 14%"> <!-- Date -->
                  <%if(order=="date asc"){%><a href="/?order=date desc&page=1">Date <i class="icon-chevron-up"></i></a>
                 <%}else if(order=="date desc"){%><a href="/?order=date asc&page=1">Date <i class="icon-chevron-down"></i></a>
                 <% } else {%><a href="/?order=date asc&page=1">Date</a> <%}%>
@@ -117,24 +117,21 @@
                     <li ><a tabindex="-1" href="/?type=Other&page=1">Other</li>
                   </ul>
                 </div>
-               <!--  <%if(order=="catg asc"){%><a href="/?order=catg desc&page=1">Category <i class="icon-chevron-up"></i></a>
-                <%}else if(order=="catg desc"){%><a href="/?order=catg asc&page=1">Category <i class="icon-chevron-down"></i></a>
-                <% } else {%><a href="/?order=catg asc&page=1">Category</a> <%}%> -->
               </th>
-              <th>
+              <th> <!-- Link -->
                 <%if(order=="name asc"){%><a href="/?order=name desc&page=1">Link <i class="icon-chevron-up"></i></a>
                 <%}else if(order=="name desc"){%><a href="/?order=name asc&page=1">Link <i class="icon-chevron-down"></i></a>
                 <% } else {%><a href="/?order=name asc&page=1">Link</a> <%}%>
               </th>
-              <th style="width: 7%">
+              <th style="width: 7%"> <!-- Hits -->
                 <%if(order=="hits asc"){%><a href="/?order=hits desc&page=1">Hits <i class="icon-chevron-up"></i></a>
                 <%}else if(order=="hits desc"){%><a href="/?order=hits asc&page=1">Hits <i class="icon-chevron-down"></i></a>
                 <% } else {%><a href="/?order=hits asc&page=1">Hits</a> <%}%>
               </th>
-              <th style="width: 7%">
+              <th style="width: 7%"> <!-- Size -->
                 Size
               </th> 
-              <th style="width: 5%">
+              <th style="width: 5%"> <!-- Options -->
                 Options
               </th>      
             </tr>
@@ -143,10 +140,9 @@
             <%if(typeof rows != 'undefined'){%>
             <% for(var i=0;i<rows.length;i++) {%>
             <tr>
-              <!-- <td><%=(page-1)*pagesize+i+1%></td> -->
               <td><%=rows[i].date.toString().slice(4,15)%></td>
               <td><a href="/?type=<%=rows[i].catg%>&page=1"><%=rows[i].catg%></a></td>
-              <td><a href="<%=rows[i].link %>"><strong><%=rows[i].name%></strong></a> </td>
+              <td><a href="/<%=rows[i].fid %>"><strong><%=rows[i].name%></strong></a> </td>
               <td><%=rows[i].hits%></td>
               <td><%=toUserSize(rows[i].filesize)%></td>
               <td>

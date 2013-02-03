@@ -331,8 +331,8 @@ exports.autosearch = function(req, res){
   var name;
   if(typeof req.query["term"]!='undefined') { // name
 
-      name = req.query["term"];
-      name = name.replace(/[^A-Za-z0-9 ]/g,'');
+    name = req.query["term"];
+    name = name.replace(/[^A-Za-z0-9 ]/g,'');
 
   } else name = "";
   
@@ -351,5 +351,33 @@ exports.autosearch = function(req, res){
     res.end();
     client.end();
   });
+};
 
+exports.goto = function(req, res){
+
+  var fid;
+  //console.log(req.params.fid);
+
+  if(typeof req.params.fid!='undefined') { // name
+    try {
+      check(req.params.fid,"It looks like this is an unknown id!").isInt().min(0).max(1000000);
+      fid = req.params.fid;
+    } catch (e) {
+      res.redirect('/?error='+e.message);
+      return;
+    }
+  } else {res.redirect("/?error=Unknown link broski :3");return;}
+
+  client = new pg.Client(conString);
+  client.connect();
+
+  query = client.query("select link from links where fid = $1",[fid], function(err,result){
+    if (result.rowCount==0) {
+      res.redirect('/?error=Unknown link id broski :3');
+      client.end();
+      return;
+    }
+    res.redirect(result.rows[0].link);
+    client.end();
+  });
 };
