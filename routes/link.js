@@ -27,7 +27,7 @@ exports.list = function(req, res){
   if(typeof req.session.orderby === 'undefined') req.session.orderby = orderby;
   else {
     try {
-      check(req.session.orderby,"Order session invalid").regex('(catg|name|date) (asc|desc)$');
+      check(req.session.orderby,"Order session invalid").regex('(catg|name|date|hits) (asc|desc)$');
     } catch (e) {
       res.redirect('/?error='+e.message);
       delete req.session.orderby;
@@ -71,7 +71,7 @@ if(req.url != "/") {
 // Check GET data and use it if clean else use session data.
   if(typeof req.query["order"] != 'undefined') { // Order by filter
     try {
-      check(req.query["order"],"Order invalid").regex('(catg|name|date) (asc|desc)$');
+      check(req.query["order"],"Order invalid").regex('(catg|name|date|hits) (asc|desc)$');
       orderby = req.query["order"];
       req.session.orderby = orderby;
     } catch (e) {
@@ -259,7 +259,7 @@ req.session.tos = true;
 // Check GET data and use it if clean else use session data.
   if(typeof req.query["order"] != 'undefined') { // Order by filter
     try {
-      check(req.query["order"],"Order invalid").regex('(catg|name|date) (asc|desc)$');
+      check(req.query["order"],"Order invalid").regex('(catg|name|date|hits) (asc|desc)$');
       orderby = req.query["order"];
       req.session.orderby = orderby;
     } catch (e) {

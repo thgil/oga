@@ -61,4 +61,5 @@ def updatelinks(links):
 
 updatelinks(getlinks())
 
+conn.commit()
 conn.close()
