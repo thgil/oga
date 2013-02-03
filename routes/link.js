@@ -371,13 +371,16 @@ exports.goto = function(req, res){
   client = new pg.Client(conString);
   client.connect();
 
-  query = client.query("select link from links where fid = $1",[fid], function(err,result){
-    if (result.rowCount==0) {
+  query = client.query("select link,hits from links where fid=$1",[fid], function(err,result1){
+    if (result1.rowCount==0) {
       res.redirect('/?error=Unknown link id broski :3');
       client.end();
       return;
     }
-    res.redirect(result.rows[0].link);
-    client.end();
+    console.log(result1.rows[0].hits);
+    client.query("update links set hits=$1 where fid=$2",[(result1.rows[0].hits+1), fid], function(err,result2){
+      res.redirect(result1.rows[0].link);
+      client.end();
+    });
   });
 };
