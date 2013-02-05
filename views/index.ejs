@@ -37,13 +37,16 @@
 <% function toUserSize(bytes) {
   if(typeof bytes === 'undefined' || bytes=="TBD") return "TBD";
   var KB=1024,MB=1024*1024,GB=1024*1024*1024,TB=1024*1024*1024*1024;
-  if(bytes.length<=9) //GB
-    if(bytes.length<=6) //MB
-      if(bytes.length<=3) //KB
-        return Math.round(bytes/KB)+" KB";
-      return Math.round(bytes/MB)+" MB";
-    return Math.round(bytes/GB)+" GB";
-  return Math.round(bytes/TB)+" TB";
+  if(bytes.length<=9) { //MB
+    if(bytes.length<=6) { //KB
+      if(bytes.length<=3) { //B
+        return Math.round(bytes)+" B";
+      }
+      return Math.round(bytes/KB)+" KB";
+    }
+    return Math.round(bytes/MB)+" MB";
+  }
+  return Math.round(bytes/GB)+" GB";
 } %>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -113,7 +116,7 @@
                     <li ><a tabindex="-1" href="/?type=Games&page=1">Games</li>
                     <li ><a tabindex="-1" href="/?type=Ebooks&page=1">Ebooks</li>
                     <li ><a tabindex="-1" href="/?type=Documents&page=1">Documents</li>
-                    <li ><a tabindex="-1" href="/?type=Documents&page=1">Porn</li>
+                    <li ><a tabindex="-1" href="/?type=Porn&page=1">Porn</li>
                     <li ><a tabindex="-1" href="/?type=Other&page=1">Other</li>
                   </ul>
                 </div>
@@ -148,7 +151,7 @@
               <td>
                 <a href="/report/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="left" data-original-title="Report"> <i class="icon-ban-circle"> </i> </a>
                 <!-- <i class="icon-pencil"></i> -->
-                <a href="/remove/?id=<%=rows[i].fid %>" rel="tooltip" data-placement="right" data-original-title="Remove"> <i class="icon-trash"> </i> </a>
+                <a href="/remove/<%=rows[i].fid %>" rel="tooltip" data-placement="right" data-original-title="Remove"> <i class="icon-trash"> </i> </a>
               </td>
             </tr>
             <%}%>

@@ -73,7 +73,7 @@ app.get('/', link.list);
 app.get('/search', link.search);
 app.get('/autosearch', link.autosearch)
 app.post('/add', link.add);
-app.get('/remove', link.remove);
+app.get('/remove/:fid', link.remove);
 app.get('/report', function(req,res){res.redirect('/?success=Reported!')})
 app.get('/:fid', link.goto);
 //app.get('/:error', link.list);

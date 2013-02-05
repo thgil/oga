@@ -111,6 +111,10 @@ if(req.url != "/") {
     }
   } else type = req.session.type;
 } else {
+  console.log("WTF IS TYPE?");
+  delete req.session.orderby;
+  delete req.session.page;
+  delete req.session.type;
   orderby = "date desc";
   page = 1;
   type = "All";
@@ -177,13 +181,13 @@ exports.add = function(req, res){
 
 exports.remove = function(req, res){
 
-  id = req.query["id"];
+  id = 0;
   ip = req.ip;
 
-  if(typeof req.query["id"]!='undefined') { // Page number
+  if(typeof req.params.fid!='undefined') { // Page number
     try {
-      check(req.query["id"],"What kindof id is this?!").isInt().min(0).max(100000);
-      id = req.query["id"];
+      check(req.params.fid,"What kindof id is this?!").isInt().min(0).max(100000);
+      id = req.params.fid;
     } catch (e) {
       res.redirect('/?error='+e.message);
       return;

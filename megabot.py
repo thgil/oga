@@ -30,14 +30,14 @@ def getfileinfo(file_id, file_key):
     return [attributes['n'], size, True]
 
   except:
-    print "DEAD: %s now marked as dead" % (file_id)
+    print "DEAD: %s" % (file_id)
     return ["", "", False]
 
 def getlinks():
   cur = conn.cursor()
   links = []
 
-  cur.execute("SELECT * FROM links;")
+  cur.execute("SELECT fid,link FROM links;")
 
   for record in cur:
     fid = record[0]
@@ -57,9 +57,19 @@ def updatelinks(links):
     cur.execute("UPDATE links SET (filename, filesize, alive) = (%s, %s, %s) WHERE fid = %s;", (fileinfo[0], fileinfo[1], fileinfo[2], link[0]))
     print "Updated %d" % (link[0])
 
+  print "%d updated!" % len(links)
+
+  cur.close()
+
+def cleanlinks():
+  cur = conn.cursor()
+
+  cur.execute("DELETE FROM links where alive=false;")
+
   cur.close()
 
 updatelinks(getlinks())
+cleanlinks()
 
 conn.commit()
 conn.close()
