@@ -52,6 +52,7 @@ def getlinks():
 def updatelinks(links):
   cur = conn.cursor()
 
+  #use a map here?
   for link in links:
     fileinfo = getfileinfo(link[1],link[2])
     cur.execute("UPDATE links SET (filename, filesize, alive) = (%s, %s, %s) WHERE fid = %s;", (fileinfo[0], fileinfo[1], fileinfo[2], link[0]))

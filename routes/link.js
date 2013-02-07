@@ -111,7 +111,6 @@ if(req.url != "/") {
     }
   } else type = req.session.type;
 } else {
-  console.log("WTF IS TYPE?");
   delete req.session.orderby;
   delete req.session.page;
   delete req.session.type;
