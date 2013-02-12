@@ -65,7 +65,7 @@
     <div class="navbar-inner">
         <div class="container">
           <div class="row-fluid">
-      <div class="span11">
+      <div class="span12">
             <!-- <a class="brand" href="#">NotMega</a> -->
             <a href="/" class="pull-left"><img src="img/mega.png" alt="Not Mega"></a>
 
@@ -173,7 +173,7 @@
             <tr>
               <td><%=rows[i].date.toString().slice(4,15)%></td>
               <td><a href="/?type=<%=rows[i].catg%>&page=1"><%=rows[i].catg%></a></td>
-              <td><a href="/<%=rows[i].fid %>"><strong><%=rows[i].name%></strong></a> </td>
+              <td><a href="/goto/<%=rows[i].fid %>"><strong><%=rows[i].name%></strong></a> </td>
               <td><%=rows[i].hits%></td>
               <td><%=toUserSize(rows[i].filesize)%></td>
               <td>
@@ -237,8 +237,10 @@
 <%}%>
 
 
-<p class="muted" style="text-align: center">
+<p style="text-align: center">
   <a href="#tos" data-toggle="modal">Terms Of Service</a>
+  &middot;
+  <a href="#dmca" data-toggle="modal">DMCA</a>
 </p>
 
 </div><!-- /container -->
@@ -300,19 +302,16 @@
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">Not Mega Terms and Conditions of Use</h3>
     </div>
-    <form  name="tos" method="post" action="/add" class="form-horizontal" data-validate="parsley">
     <div class="modal-body">
-    <h4><i>Each section has a tl;dr for easy reading!<i></h4>
-
-    <dl>
-      <dt>1. Terms</dt>
-      <dd>
-        By accessing this web site, you are agreeing to be bound by these Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, feel free to fuck off.
+    <h4><i>Terms of Service</i></h4>
+      <dl>
+        <dt>1. Terms</dt>
+        <dd>
+          By accessing this web site, you are agreeing to be bound by these Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, feel free to fuck off.
+        </dd>
         <br />
-        <i>Tl;dr - Obey or GTFO</i>
-      </dd>
-
-      <dt>2. Usage License</dt>
+          
+        <dt>2. Usage License</dt>
         <dd>
           Permission is granted to post and peruse links to file content hosted on mega.co.nz. While using this site, you may not:
           <ul>
@@ -326,47 +325,75 @@
             </li>
             <li>Use our shit for any commercial purpose, or attempt to decompile or reverse engineer our super sexy code or software</li>
           </ul>
-        This license shall automatically terminate if you violate any of these restrictions and may be terminated by Not Mega at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format. Delete gym, hit the Facebook.
-        <br />
-        <i>Tl;dr – Don’t do illegal shit or try to break or steal our stuff</i>
+          This license shall automatically terminate if you violate any of these restrictions and may be terminated by Not Mega at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format. Delete gym, hit the Facebook.
         </dd>
+        <br />
+          
+        <dt>3. Disclaimer</dt>
+        <dd>
+          The materials on Not Mega's web site are provided "as is." You get no warranties. Do not pass Go, do not collect $200. Crap on this website might not even be accurate, complete or even up-to-date. Not Mega is not liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Not Mega's Internet site, even if Not Mega or a Not Mega authorized representative has been notified orally or in writing of the possibility of such damage. 
+        </dd>
+        <br />
+          
+        <dt>4. Links</dt>
+        <dd>
+          Not Mega has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Not Mega of the site. Use of any such linked web site is at the idiot user's own risk.
+        </dd>
+        <br />
+
+        <dt>5. Site Terms of Use Modifications</dt>
+        <dd>
+          Not Mega may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
+        </dd>
+        <br />
+
+        <dt>6. Governing Law</dt>
+        <dd>
+          Any claim relating to Not Mega's web site shall be governed by the laws of the State of New York without regard to its conflict of law provisions.
+        </dd>
+        <br />
+
+        <dt>Privacy Policy</dt>
+        <dd>
+          We will collect personal information only as necessary to run our site. We won't sell your info, give it away, use it to stalk you, or give it to our weird friend Eddie for him to masturbate to.
+        </dd>
+      </dl>
+    </div> 
+     <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+  </div>
+    <div id="dmca" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="dmca" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Not Mega Terms and Conditions of Use</h3>
+      </div>
+    <div class="modal-body">
+    <h1><i>Not Mega DMCA Policy</i></h1>
+    <p>
+      Not Mega fully complies with 17 U.S.C. § 512 and the Digital Millennium Copyright Act. Upon receiving a DMCA notice, we will take appropriate actions under the Digital Millennium Copyright Act as well as other applicable intellectual property laws.
+    </p>
+
+    <p>
+      If a link to your copyrighted material is on Not Mega and you want the link removed, please email dmca@notmega.com and include the following required information:
+    </p>
         
-      <dt>3. Disclaimer</dt>
-      <dd>
-        The materials on Not Mega's web site are provided "as is." You get no warranties. Do not pass Go, do not collect $200. Crap on this website might not even be accurate, complete or even up-to-date. Not Mega is not liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Not Mega's Internet site, even if Not Mega or a Not Mega authorized representative has been notified orally or in writing of the possibility of such damage. 
-        <br />
-        <i>Tl;dr – No warranties, money or blowjobs for you</i>
-      </dd>
+    <ul>
+      <li>Prove that you are the person(s) infringed upon, or are acting on behalf of the owner(s) of the content allegedly infringed upon.</li>
+      <li>Adequately describe the content infringed upon, and provide at least one relevant search term that results in a link to the material being displayed on our service.</li>
+      <li>Recognize that you believe in good faith that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.</li>
+      <li>Confirm that the information you have provided is accurate, and under penalty of perjury, that you are authorized to act on behalf of the owner(s) of the allegedly infringed right.</li>
+        <li>Provide sufficient contact information so that we may contact you. (A valid email address is sufficient in most cases)</li>
+    </ul>
 
-      <dt>6. Links</dt>
-      <dd>
-        Not Mega has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Not Mega of the site. Use of any such linked web site is at the idiot user's own risk.
-        <br />
-        <i>Tl;dr - Gay porn sites might link to us, but we don’t care</i>
-      </dd>
+    <p>
+      You can expect to receive an email response within 72 hours to a week.
+    </p>
 
-      <dt>7. Site Terms of Use Modifications</dt>
-      <dd>
-        Not Mega may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
-        <br />
-        <i>Tl;dr - This shit may change</i>
-      </dd>
-
-      <dt>8. Governing Law</dt>
-      <dd>
-        Any claim relating to Not Mega's web site shall be governed by the laws of the State of New York without regard to its conflict of law provisions.
-        <br />
-        <i>Tl;dr - New York be super cool</i>
-      </dd>
-
-      <dt>Privacy Policy</dt>
-      <dd>
-        We will collect personal information only as necessary to run our site. We won't sell your info, give it away, use it to stalk you, or give it to our weird friend Eddie for him to masturbate to.
-        <br />
-        <i>Tl;dr – Your anus is safe with us</i>
-      </dd>
-    </dl>
-    </div>  
+    <p><i>
+     * Please note that removing your link does <b>not</b> remove the copyrighted content from Mega or its servers, and a separate DMCA notice must be filed with them in order to remove the infringing content.
+    </i></p>
+    </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>

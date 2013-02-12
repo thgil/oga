@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Steam Community :: Chat	</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<link href="http://cdn.steamcommunity.com/public/shared/css/buttons.css?v=3143806127" rel="stylesheet" type="text/css">
+<link href="http://cdn.steamcommunity.com/public/css/globalv2.css?v=594987671" rel="stylesheet" type="text/css">
+<link href="http://cdn.steamcommunity.com/public/css/skin_1/chat.css?v=129687449" rel="stylesheet" type="text/css">
+<link href="http://cdn.steamcommunity.com/public/css/skin_1/header.css?v=439635755" rel="stylesheet" type="text/css">
+	<link href="http://cdn.steamcommunity.com/public/css/skin_1/vgui_scrollbars.css?v=2171117" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="http://cdn.steamcommunity.com/public/javascript/jquery-1.8.3.min.js?v=3055504235&amp;l=english"></script>
+<script type="text/javascript" src="http://cdn.steamcommunity.com/public/javascript/global_jquery.js?v=4197706929&amp;l=english"></script>
+<script type="text/javascript">$J = jQuery.noConflict();
+if ( typeof JSON != 'object' || !JSON.stringify || !JSON.parse ) { document.write( "<script type=\"text\/javascript\" src=\"http:\/\/cdn.steamcommunity.com\/public\/javascript\/json2.js?v=2009218622&amp;l=english\"><\/script>\n" ); };
+</script><script type="text/javascript" src="http://cdn.steamcommunity.com/public/javascript/chat.js?v=3216309607&amp;l=english"></script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33779068-1']);
+  _gaq.push(['_setCustomVar', 1, 'Logged In', 'true', 2]);
+  _gaq.push(['_setCustomVar', 2, 'Client Type', 'External', 2]);
+  _gaq.push(['_setCustomVar', 3, 'Cntrlr', 'chat', 3]);
+  _gaq.push(['_setCustomVar', 4, 'Method', "chat\/", 3]);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_setSessionCookieTimeout', 900000]);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+<body class="flat_page chat_body">
+
+<div class="pagecontent chat_page in_client">
+	<script type="text/javascript">
+	g_sessionID = "NTAyODU4OTEz";
+	g_steamID = "76561197960552705";
+</script>
+	<div class="chat_page_header maincontent">
+		<div class="chat_page_header_logo_area">
+			<div class="chat_page_steam_logo"></div>
+			<div class="chat_page_beta_logo"></div>
+			<div class="chat_page_beta_description">
+				Please leave your feedback on the web chat beta in the <a class="whiteLink" target="_blank" href="http://steamcommunity.com/groups/SteamClientBeta/discussions">Steam Client Beta Group</a>.<br>
+				<div id="sound_toggle">Sound: <a href="#" class="whiteLink" id="sound_enable">Disabled</a></div>
+				<div><a href="#" class="whiteLink" id="toast_enable" title="Display a notification in the corner of the screen when a new chat message arrives."></a></div>
+			</div>
+		</div>
+		<div class="chat_page_header_user" id="chat_page_header_user">
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+
+	<div class="maincontent">
+		<div id="chat_container">
+			<div id="chat_msg_area" style="display: none;">
+				<div class="chat_msg_area_highlight"></div>
+				<div id="chatlog">
+
+				</div>
+				<form method="POST" id="chatform" onsubmit="return false;">
+					<div class="gray_bevel fullwidth chatform_textarea">
+						<textarea rows="2" name="message" id="chatmessage"></textarea>
+					</div>
+					<div class="chatform_footer">
+						<button type="submit" class="btn_darkblue_white_innerfade btn_medium">
+							<span>SEND</span>
+						</button>
+					</div>
+				</form>
+			</div>
+			<div id="chat_friendslist_area">
+				<div id="chat_friendslist">
+				</div>
+			</div>
+
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+
+</div>
+
+<audio id="message_received_audio" src="http://cdn.steamcommunity.com/public/images/chat/message.wav" preload="auto"></audio>
+
+<script type="text/javascript">
+	WebAPI = new CWebAPI( 'http://api.steampowered.com/', 'https://api.steampowered.com/', "e42cba885f2a44f63eaf92f2bad3cd31" );
+	Chat = new CWebChat( WebAPI, {"m_unAccountID":"286977","m_ulSteamID":"76561197960552705","m_strName":"Light","m_ePersonaState":3,"m_strAvatarHash":"2157cc4bdc049d485cbb7d2e09e43bb5802c69f7","m_tsLastMessage":0,"m_tsLastView":0}, [{"m_unAccountID":22540582,"m_ulSteamID":"76561197982806310","m_strName":"Aunt Jemima","m_ePersonaState":1,"m_strAvatarHash":"c9298ef6211ae9fcd3613758a4523fdda8b109b1","m_tsLastMessage":1360265875,"m_tsLastView":1360265875},{"m_unAccountID":46738197,"m_ulSteamID":"76561198007003925","m_strName":"Marauder789","m_ePersonaState":1,"m_strAvatarHash":"35ed3b35a004bf3a86de523ad9dbb4f18208f0d1","m_tsLastMessage":1360256605,"m_tsLastView":1360256605},{"m_unAccountID":23363028,"m_ulSteamID":"76561197983628756","m_strName":"CTO_7","m_ePersonaState":4,"m_strAvatarHash":"59cdb1d7b27f9519d7931035cb52fcd64f8d571e","m_tsLastMessage":1360207378,"m_tsLastView":1360207378},{"m_unAccountID":107618134,"m_ulSteamID":"76561198067883862","m_strName":"Hay","m_ePersonaState":0,"m_strAvatarHash":"90f110605475aa326d800a370af492e6bf568989","m_tsLastMessage":1360111581,"m_tsLastView":1360111581},{"m_unAccountID":80579636,"m_ulSteamID":"76561198040845364","m_strName":"Ans86","m_ePersonaState":1,"m_strAvatarHash":"e946c4a855f95bc372bf029b480d451cdeb32d5f","m_tsLastMessage":1359995877,"m_tsLastView":1359995877},{"m_unAccountID":64711340,"m_ulSteamID":"76561198024977068","m_strName":"Heisenberg","m_ePersonaState":0,"m_strAvatarHash":"911742a961ac29cf60a7cad45210e77ff586136e","m_tsLastMessage":1359848062,"m_tsLastView":1359848062},{"m_unAccountID":32309815,"m_ulSteamID":"76561197992575543","m_strName":"&lt;|=AThL0NiX=|&gt;","m_ePersonaState":1,"m_strAvatarHash":"9c126f5a0a45ec2dbcbd8c4f72d7f30f3eed995e","m_tsLastMessage":1359827515,"m_tsLastView":1359827515,"m_nInGameAppID":"65800","m_strInGameName":"Dungeon Defenders"},{"m_unAccountID":10934930,"m_ulSteamID":"76561197971200658","m_strName":"Mightymuffin","m_ePersonaState":0,"m_strAvatarHash":"0fa8d3165b12f6c7c27e0162cdb469be913eef0e","m_tsLastMessage":1355603545,"m_tsLastView":1355603545},{"m_unAccountID":37949770,"m_ulSteamID":"76561197998215498","m_strName":"Flarehawk","m_ePersonaState":1,"m_strAvatarHash":"d301def8a29d50b90dc8bbf3db000c15345d1c20","m_tsLastMessage":1355437627,"m_tsLastView":1359024382},{"m_unAccountID":75453702,"m_ulSteamID":"76561198035719430","m_strName":"Chocolina","m_ePersonaState":0,"m_strAvatarHash":"98fdf42ddf2bdeea9b422b64332f7d59fed6a7ea","m_tsLastMessage":1355431470,"m_tsLastView":1359024376},{"m_unAccountID":38520078,"m_ulSteamID":"76561197998785806","m_strName":"zombo","m_ePersonaState":0,"m_strAvatarHash":"798f13c3d437c310576ac6dfbbc9ea448ee9c5f8","m_tsLastMessage":1355336994,"m_tsLastView":1355336994},{"m_unAccountID":69973806,"m_ulSteamID":"76561198030239534","m_strName":"Dergin","m_ePersonaState":0,"m_strAvatarHash":"e0370f353743190d6d7f6ba8e57a2b73e5dd51cb","m_tsLastMessage":1352414579,"m_tsLastView":1352414579},{"m_unAccountID":34711998,"m_ulSteamID":"76561197994977726","m_strName":"Christopher 6e","m_ePersonaState":6,"m_strAvatarHash":"512525190c52795b8a8de5fd0a992ea7600f10ad","m_tsLastMessage":0,"m_tsLastView":0,"m_nInGameAppID":"48700","m_strInGameName":"Mount & Blade: Warband"},{"m_unAccountID":44025843,"m_ulSteamID":"76561198004291571","m_strName":"Icon","m_ePersonaState":3,"m_strAvatarHash":"8f7aff78c73fede8aca9bf66ea02deb24205374c","m_tsLastMessage":0,"m_tsLastView":0,"m_nInGameAppID":"570","m_strInGameName":"Dota 2"},{"m_unAccountID":36424695,"m_ulSteamID":"76561197996690423","m_strName":"LiGhT. sK","m_ePersonaState":1,"m_strAvatarHash":"e4fa22b610b733f2035c2f46b2d09a87181cfc38","m_tsLastMessage":0,"m_tsLastView":0,"m_nInGameAppID":"10","m_strInGameName":"Counter-Strike"},{"m_unAccountID":85956379,"m_ulSteamID":"76561198046222107","m_strName":"Neepho","m_ePersonaState":1,"m_strAvatarHash":"0b2a14e33fd663a660615f4c188f0059d52426ab","m_tsLastMessage":0,"m_tsLastView":0,"m_nInGameAppID":"48700","m_strInGameName":"Mount & Blade: Warband"},{"m_unAccountID":40397556,"m_ulSteamID":"76561198000663284","m_strName":"a moomoo","m_ePersonaState":1,"m_strAvatarHash":"581ee0a1065569cd36dcbba08a58dad9540414df","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":22368780,"m_ulSteamID":"76561197982634508","m_strName":"Buhl","m_ePersonaState":1,"m_strAvatarHash":"6db492d2f3772961bce6ca8cbb2bf007b3b99154","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":26714563,"m_ulSteamID":"76561197986980291","m_strName":"Cubone","m_ePersonaState":1,"m_strAvatarHash":"34ecdf451ebcb605c1ef1b9ef2a6522efc6e7799","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":10577117,"m_ulSteamID":"76561197970842845","m_strName":"I Waste Air","m_ePersonaState":1,"m_strAvatarHash":"6a759aacd309f81c4e71eb2830a26542c26dc988","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":31445979,"m_ulSteamID":"76561197991711707","m_strName":"method'","m_ePersonaState":3,"m_strAvatarHash":"9aca005316e5bd93384bbe543f32cdd8b56eb909","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":106757898,"m_ulSteamID":"76561198067023626","m_strName":"Mr. Im Anonymous","m_ePersonaState":3,"m_strAvatarHash":"75575e974cee69fbd20879a66edae8afbdd02591","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":23978569,"m_ulSteamID":"76561197984244297","m_strName":"o Helljumper o","m_ePersonaState":1,"m_strAvatarHash":"8851ab12229ede2ff223caeb9753e74bd0feb9bb","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":76923852,"m_ulSteamID":"76561198037189580","m_strName":"Prince!?","m_ePersonaState":1,"m_strAvatarHash":"d8900a0c118f03bd5c6a55c9d9162054487b6709","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":81194193,"m_ulSteamID":"76561198041459921","m_strName":"Robin","m_ePersonaState":1,"m_strAvatarHash":"fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":52580106,"m_ulSteamID":"76561198012845834","m_strName":"Soshidow","m_ePersonaState":1,"m_strAvatarHash":"3706c33cd69513cb6e13dae4794a8c959843968b","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":38819664,"m_ulSteamID":"76561197999085392","m_strName":"TazzNADO","m_ePersonaState":3,"m_strAvatarHash":"1ebc42c491892e11e0ca883f7507a32ffc1d838b","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":16922792,"m_ulSteamID":"76561197977188520","m_strName":"TerminalHunter","m_ePersonaState":1,"m_strAvatarHash":"5a4beae2038e89074f678046895c6bcd3372b55b","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":10626238,"m_ulSteamID":"76561197970891966","m_strName":"Thor's Hammer","m_ePersonaState":1,"m_strAvatarHash":"c245a21e426409d61b9533c3afb86c89c0b1a14f","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":78624725,"m_ulSteamID":"76561198038890453","m_strName":"Toasty Goblin","m_ePersonaState":1,"m_strAvatarHash":"4f61bc7a9b882f2349d4ab2b9cf7c4b60af4477d","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":1125128,"m_ulSteamID":"76561197961390856","m_strName":"Unc0nn3ct3d","m_ePersonaState":1,"m_strAvatarHash":"f137b2c9dbfe300d1622f374973cc8a54c38d9d7","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":57338613,"m_ulSteamID":"76561198017604341","m_strName":"Zangis","m_ePersonaState":1,"m_strAvatarHash":"9a1d6fc2efc11e73f58f708b6fb0401dfe661850","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":52091640,"m_ulSteamID":"76561198012357368","m_strName":"[HST.SA] Spectre","m_ePersonaState":1,"m_strAvatarHash":"804076084718b05260f8b4d18e10cae3019028d1","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":33100303,"m_ulSteamID":"76561197993366031","m_strName":"Doccy","m_ePersonaState":0,"m_strAvatarHash":"4ed863a8a9548bab699f33250cf886ace0968655","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":60367413,"m_ulSteamID":"76561198020633141","m_strName":"\u2c62\u0451","m_ePersonaState":0,"m_strAvatarHash":"2b40b84bfd67b33aaca2bcfe6b11580f18a0b53a","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":81905796,"m_ulSteamID":"76561198042171524","m_strName":"firefang225","m_ePersonaState":0,"m_strAvatarHash":"d52716040a3036c2aa8eb852aa22907847130012","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":61208676,"m_ulSteamID":"76561198021474404","m_strName":"TheNite","m_ePersonaState":0,"m_strAvatarHash":"0110b09a9bde96a0f97a5e27fc54630e35d05e56","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":68018488,"m_ulSteamID":"76561198028284216","m_strName":"SGB_Mathias","m_ePersonaState":0,"m_strAvatarHash":"9aa8d5428642d8c3e4f92ecccbc754b39202870e","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":71758550,"m_ulSteamID":"76561198032024278","m_strName":"Apheroth","m_ePersonaState":0,"m_strAvatarHash":"d1340b8e89cc2c55b115d9e42f6f4704d16b6c75","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":35076795,"m_ulSteamID":"76561197995342523","m_strName":"V.I.P.","m_ePersonaState":0,"m_strAvatarHash":"aab635c1aec528fb486daa43fe2ab0275e633937","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":1664085,"m_ulSteamID":"76561197961929813","m_strName":"&gt;&gt; WaZz","m_ePersonaState":0,"m_strAvatarHash":"13392fdfa401f013c0183cd74ae85ba6225d1229","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":56971022,"m_ulSteamID":"76561198017236750","m_strName":"rabid","m_ePersonaState":0,"m_strAvatarHash":"89a44dec23cc46fd56debcce892b969b80623c59","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":46668464,"m_ulSteamID":"76561198006934192","m_strName":"Jansen","m_ePersonaState":0,"m_strAvatarHash":"9dfdaf588387b240c74a6962c1abd95badc4c1ab","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":12896797,"m_ulSteamID":"76561197973162525","m_strName":"[ACPL] Jon","m_ePersonaState":0,"m_strAvatarHash":"7366fe975249cee1e4c1068c2b6ede723c6c2d38","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":3853350,"m_ulSteamID":"76561197964119078","m_strName":"Mage of Black ibis.a","m_ePersonaState":0,"m_strAvatarHash":"c649cc9fb4e95206dcffb6aeb02cc95af8311200","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":56724207,"m_ulSteamID":"76561198016989935","m_strName":"Miasosome","m_ePersonaState":0,"m_strAvatarHash":"6d9699f13ab8d9d9cd9c4f60389707e55e43068d","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":28381634,"m_ulSteamID":"76561197988647362","m_strName":"Kame \u4e80","m_ePersonaState":0,"m_strAvatarHash":"1f6982f256cf9c381040c82bb2f651e5f9f4bfe6","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":49854172,"m_ulSteamID":"76561198010119900","m_strName":"DeathInjection","m_ePersonaState":0,"m_strAvatarHash":"6b154949d10338ef2bca69fd34478f0519a81afe","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":47839925,"m_ulSteamID":"76561198008105653","m_strName":"BustinJon","m_ePersonaState":0,"m_strAvatarHash":"c882a8d9727e02ea3f7e0b5822cd2bf7206d79c6","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":11240052,"m_ulSteamID":"76561197971505780","m_strName":"joechip[Gro.P.D.]","m_ePersonaState":0,"m_strAvatarHash":"d4785b04f345b9db25d53d83f0f86e761729f4a0","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":33300123,"m_ulSteamID":"76561197993565851","m_strName":"[GLG]Blue","m_ePersonaState":0,"m_strAvatarHash":"d70b73be31ccbc66342afbb34dc9e6be19a14a46","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":13654026,"m_ulSteamID":"76561197973919754","m_strName":"[ES]Gordon154","m_ePersonaState":0,"m_strAvatarHash":"91e7624195128124cba3bf558a7e99c73cf765e2","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":26716760,"m_ulSteamID":"76561197986982488","m_strName":"AnDThEn","m_ePersonaState":0,"m_strAvatarHash":"f596ff7eedc18eb120ffef3ab4a1474e29d83c55","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":104936033,"m_ulSteamID":"76561198065201761","m_strName":"braddo99","m_ePersonaState":0,"m_strAvatarHash":"a85e031dbf77309235ee9272f647455aee1abdf8","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":58123734,"m_ulSteamID":"76561198018389462","m_strName":"thedalster","m_ePersonaState":0,"m_strAvatarHash":"8469bc519706e0017774e0f61f84dd0b179dc56f","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":30632295,"m_ulSteamID":"76561197990898023","m_strName":"[TerranCom.net] Norway174","m_ePersonaState":0,"m_strAvatarHash":"1155269bac7dee278effdf8ff16a15aa41dc8c11","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":82651832,"m_ulSteamID":"76561198042917560","m_strName":"Angelic warrior","m_ePersonaState":0,"m_strAvatarHash":"59666d7f4322187e7a3d1bfcb940cf0102fc13f7","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":51306424,"m_ulSteamID":"76561198011572152","m_strName":"Wang Zubial - not at home","m_ePersonaState":0,"m_strAvatarHash":"8506c0f355a49cec5fdfd3c3273d339b42fce35c","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":54241523,"m_ulSteamID":"76561198014507251","m_strName":"LirLov.","m_ePersonaState":0,"m_strAvatarHash":"fb03c70f49b00e263e6b857075aa2cf08c6e9efe","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":73509397,"m_ulSteamID":"76561198033775125","m_strName":"Bosaltico &amp; The Cavalry","m_ePersonaState":0,"m_strAvatarHash":"3eacbae99a99cf779205b84f12b3581cdeb49937","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":94517818,"m_ulSteamID":"76561198054783546","m_strName":"GottaCallSaul","m_ePersonaState":0,"m_strAvatarHash":"5cedfb1b11dd5bf3ce9832a74eca40b8309c957b","m_tsLastMessage":0,"m_tsLastView":0},{"m_unAccountID":1273369,"m_ulSteamID":"76561197961539097","m_strName":"Askatasuna","m_ePersonaState":0,"m_strAvatarHash":"f49db51df5d93a4e9346da23d299111a23eb7f48","m_tsLastMessage":0,"m_tsLastView":0}], [] );
+	$J( InitializeChat );
+</script>
+
+</body>
+</html>
