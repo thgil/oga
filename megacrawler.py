@@ -9,16 +9,6 @@ allLinks = set() # Adding this makes each parse slower but does less parses
 count = 0
 maxDepth = 2
 
-def f(x):
-    return x*x
-
-if __name__ == '__main__':
-    pool = Pool(processes=4)              # start 4 worker processes
-    result = pool.apply_async(f, [10])    # evaluate "f(10)" asynchronously
-    print result.get(timeout=1)           # prints "100" unless your computer is *very* slow
-    print pool.map(f, range(10))        
-
-
 def crawl(start, megaLinks, allLinks, depth):
   links = set()
 
@@ -26,20 +16,6 @@ def crawl(start, megaLinks, allLinks, depth):
   links = {link for link in links if link not in allLinks} # See set comprehensions when I forget what this is.
   for link in links:
     allLinks.add(link)
-  if(depth>maxDepth): return
-
-  global count
-  localcount = 0
-  linkcount = len(links)
-  depthstring = ""
-  for i in range(depth): depthstring+="--|"
-
-  for link in links:
-    count+=1
-    localcount+=1
-    print "%s %d - %d - %d/%d Crawling: %s" % (depthstring, count, len(megaLinks), localcount, linkcount, link)
-    sys.stdout.flush()
-    crawl(link, megaLinks, allLinks, depth+1)
 
 def parse(page, megaLinks, allLinks, links):
   try:
