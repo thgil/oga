@@ -31,9 +31,7 @@ def getfileinfo(file_id, file_key):
 
 def transferlinks():
   cur = conn.cursor()
-
-  cur.execute("INSERT INTO links(link,name,ip) VALUES ((SELECT link FROM tmplinks),name,ip blank these);")
-
+  cur.execute("INSERT INTO links(link) SELECT * FROM tmplinks;")
   cur.close()
   conn.commit()
 
@@ -58,9 +56,17 @@ def updatelinks(links):
 
   #use a map here?
   for link in links:
-    fileinfo = getfileinfo(link[1],link[2])
-    cur.execute("UPDATE links SET (filename, filesize, alive) = (%s, %s, %s) WHERE fid = %s;", (fileinfo[0], fileinfo[1], fileinfo[2], link[0]))
-    print "Updated %d" % (link[0])
+    try:
+      fileinfo = getfileinfo(link[1],link[2])
+      cur.execute("UPDATE links SET (filename, filesize, alive) = (%s, %s, %s) WHERE fid = %s;", (fileinfo[0], fileinfo[1], fileinfo[2], link[0]))
+      cur.execute("SELECT fid FROM links WHERE name = NULL;")
+      for fid in cur:
+        try:
+          cur.execute("UPDATE links SET (name, ip) = (%s, %s) WHERE fid = %s;", (fileinfo[0], '127.0.0.1', fid[0]))
+        except psycopg2.IntegrityError, e:
+          conn.rollback()
+    except psycopg2.IntegrityError, e:
+      conn.rollback()
 
   print "%d updated!" % len(links)
 
@@ -70,6 +76,7 @@ def cleanlinks():
   cur = conn.cursor()
 
   cur.execute("DELETE FROM links where alive=false;")
+  cur.execute("DELETE FROM tmplinks;")
 
   cur.close()
 
